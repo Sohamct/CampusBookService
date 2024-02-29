@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="7dae791a-3526-4d78-b534-8413233c00a2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8736/CampusBookService/PatronService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PatronService.wsdl" MetadataType="Wsdl" ID="59519614-9db7-46e8-9881-174602864fae" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?wsdl" />
+    <MetadataFile FileName="PatronService.xsd" MetadataType="Schema" ID="596d17ef-159a-4d83-a5f9-961ff3a683ae" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?xsd=xsd3" />
+    <MetadataFile FileName="PatronService1.xsd" MetadataType="Schema" ID="f5896a7f-4fb9-4429-8787-db0808108ea2" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?xsd=xsd2" />
+    <MetadataFile FileName="PatronService2.xsd" MetadataType="Schema" ID="aa1b2aa9-cbf5-4f74-96b6-4598275f29f9" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?xsd=xsd0" />
+    <MetadataFile FileName="PatronService.disco" MetadataType="Disco" ID="af556ed3-e855-405f-857a-1f7437e1913b" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?disco" />
+    <MetadataFile FileName="PatronService3.xsd" MetadataType="Schema" ID="d5d8daf4-7a4a-4f41-9506-77474e15f435" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/PatronService?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

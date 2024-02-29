@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CampusBookService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CampusBookService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BookStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="authorname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="bookimage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="bookname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="borrowerUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="branch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="isAvailable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ownerUsername" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="pages" type="xs:int" />
+      <xs:element minOccurs="0" name="returnDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="subject" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BookStore" nillable="true" type="tns:BookStore" />
+</xs:schema>
