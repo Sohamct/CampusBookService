@@ -166,6 +166,28 @@ namespace CampusBookService
                 return false;
             }
         }
-    
+        public DataSet GetPatronsFullNameByUsername(List<string> usernames)
+        {
+            DataSet dataSet = new DataSet();
+
+            using (SqlConnection conn = new SqlConnection(cs))
+            {
+                conn.Open();
+
+                DataTable dataTable = new DataTable();
+                dataSet.Tables.Add(dataTable);
+
+                foreach (string username in usernames)
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT firstname, lastname, username FROM Patron WHERE username = @Username", conn);
+                    cmd.Parameters.AddWithValue("@Username", username);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                    adapter.Fill(dataTable);
+                }
+            }
+            return dataSet;
+        }
     }
 }

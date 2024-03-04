@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AcceptOrReject = new System.Windows.Forms.Button();
+            this.requesterCombobox = new System.Windows.Forms.ComboBox();
+            this.requestStatus2 = new System.Windows.Forms.Label();
+            this.requestStatus = new System.Windows.Forms.Button();
             this.editBtn = new System.Windows.Forms.Button();
             this.deleteBtn = new System.Windows.Forms.Button();
             this.isbn = new System.Windows.Forms.Label();
@@ -60,6 +64,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.panel1.Controls.Add(this.AcceptOrReject);
+            this.panel1.Controls.Add(this.requesterCombobox);
+            this.panel1.Controls.Add(this.requestStatus2);
+            this.panel1.Controls.Add(this.requestStatus);
             this.panel1.Controls.Add(this.editBtn);
             this.panel1.Controls.Add(this.deleteBtn);
             this.panel1.Controls.Add(this.isbn);
@@ -84,16 +92,57 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.bookImage);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(282, 0);
+            this.panel1.Location = new System.Drawing.Point(237, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(941, 835);
+            this.panel1.Size = new System.Drawing.Size(986, 835);
             this.panel1.TabIndex = 0;
+            // 
+            // AcceptOrReject
+            // 
+            this.AcceptOrReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.AcceptOrReject.ForeColor = System.Drawing.Color.DarkCyan;
+            this.AcceptOrReject.Location = new System.Drawing.Point(846, 181);
+            this.AcceptOrReject.Name = "AcceptOrReject";
+            this.AcceptOrReject.Size = new System.Drawing.Size(111, 36);
+            this.AcceptOrReject.TabIndex = 28;
+            this.AcceptOrReject.Text = "Accept";
+            this.AcceptOrReject.UseVisualStyleBackColor = true;
+            this.AcceptOrReject.Click += new System.EventHandler(this.AcceptOrRejectBtn_Clicked);
+            // 
+            // requesterCombobox
+            // 
+            this.requesterCombobox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
+            this.requesterCombobox.FormattingEnabled = true;
+            this.requesterCombobox.Location = new System.Drawing.Point(431, 181);
+            this.requesterCombobox.Name = "requesterCombobox";
+            this.requesterCombobox.Size = new System.Drawing.Size(311, 28);
+            this.requesterCombobox.TabIndex = 27;
+            // 
+            // requestStatus2
+            // 
+            this.requestStatus2.AutoSize = true;
+            this.requestStatus2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.requestStatus2.Location = new System.Drawing.Point(457, 118);
+            this.requestStatus2.Name = "requestStatus2";
+            this.requestStatus2.Size = new System.Drawing.Size(60, 24);
+            this.requestStatus2.TabIndex = 26;
+            this.requestStatus2.Text = "Status";
+            // 
+            // requestStatus
+            // 
+            this.requestStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.requestStatus.Location = new System.Drawing.Point(319, 106);
+            this.requestStatus.Name = "requestStatus";
+            this.requestStatus.Size = new System.Drawing.Size(111, 47);
+            this.requestStatus.TabIndex = 25;
+            this.requestStatus.UseVisualStyleBackColor = true;
+            this.requestStatus.Click += new System.EventHandler(this.RequestBtn_Clicked);
             // 
             // editBtn
             // 
             this.editBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.editBtn.ForeColor = System.Drawing.Color.Green;
-            this.editBtn.Location = new System.Drawing.Point(552, 99);
+            this.editBtn.Location = new System.Drawing.Point(663, 33);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(113, 43);
             this.editBtn.TabIndex = 24;
@@ -105,7 +154,7 @@
             // 
             this.deleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.deleteBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.deleteBtn.Location = new System.Drawing.Point(689, 99);
+            this.deleteBtn.Location = new System.Drawing.Point(817, 33);
             this.deleteBtn.Name = "deleteBtn";
             this.deleteBtn.Size = new System.Drawing.Size(125, 43);
             this.deleteBtn.TabIndex = 23;
@@ -315,10 +364,11 @@
             // 
             // panel2
             // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(285, 835);
+            this.panel2.Size = new System.Drawing.Size(238, 835);
             this.panel2.TabIndex = 1;
             // 
             // BookDetails
@@ -328,7 +378,6 @@
             this.ClientSize = new System.Drawing.Size(1223, 835);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "BookDetails";
             this.Text = "BookDetail";
             this.panel1.ResumeLayout(false);
@@ -365,5 +414,9 @@
         private System.Windows.Forms.Label isbn;
         private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.Button deleteBtn;
+        private System.Windows.Forms.Button requestStatus;
+        private System.Windows.Forms.Label requestStatus2;
+        private System.Windows.Forms.Button AcceptOrReject;
+        private System.Windows.Forms.ComboBox requesterCombobox;
     }
 }

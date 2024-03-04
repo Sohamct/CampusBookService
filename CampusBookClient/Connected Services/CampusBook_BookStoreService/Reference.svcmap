@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="ef968696-7bab-4b1a-9b32-4d4da15f5764" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="80101b55-7f37-4027-861c-bfc1ddb68a55" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,12 +22,12 @@
     <MetadataSource Address="http://localhost:8736/CampusBookService/BookStoreService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="BookStoreService.wsdl" MetadataType="Wsdl" ID="fbb98430-35ba-429f-b0d3-2132ee82dbf4" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?wsdl" />
-    <MetadataFile FileName="BookStoreService.disco" MetadataType="Disco" ID="b3ed2c55-6854-4d67-8380-7ea4c3d4320d" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?disco" />
-    <MetadataFile FileName="BookStoreService.xsd" MetadataType="Schema" ID="4c2687fc-74a2-4f15-baed-b2096093d857" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd0" />
-    <MetadataFile FileName="BookStoreService1.xsd" MetadataType="Schema" ID="dbea19d8-77f2-4ab4-9618-092febdaf74c" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd1" />
-    <MetadataFile FileName="BookStoreService2.xsd" MetadataType="Schema" ID="b50b88e4-60f1-4bdf-a2ad-8a21bd1ab439" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd2" />
-    <MetadataFile FileName="BookStoreService3.xsd" MetadataType="Schema" ID="cc0960e2-c131-4e75-833f-717fd4712ebe" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd3" />
+    <MetadataFile FileName="BookStoreService.wsdl" MetadataType="Wsdl" ID="93d05c86-ff52-4919-b09e-2909d0877579" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?wsdl" />
+    <MetadataFile FileName="BookStoreService.disco" MetadataType="Disco" ID="395d0e87-1794-4ced-aac3-21c849a52cd6" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?disco" />
+    <MetadataFile FileName="BookStoreService.xsd" MetadataType="Schema" ID="5a42a8a0-e057-41ab-a559-6cace895621c" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd0" />
+    <MetadataFile FileName="BookStoreService1.xsd" MetadataType="Schema" ID="2d3615ab-03bc-442c-ae20-686e91daabd3" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd1" />
+    <MetadataFile FileName="BookStoreService2.xsd" MetadataType="Schema" ID="6d90cf6c-ba07-45ff-a221-fe86b83797d8" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd2" />
+    <MetadataFile FileName="BookStoreService3.xsd" MetadataType="Schema" ID="9535e145-55ae-4f6f-abee-17ff544b4ba5" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd3" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

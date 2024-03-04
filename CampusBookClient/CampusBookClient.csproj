@@ -60,6 +60,11 @@
     <Compile Include="BookDetails.Designer.cs">
       <DependentUpon>BookDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\CampusBook_BookRequestService_\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\CampusBook_BookStoreService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -132,6 +137,19 @@
     <EmbeddedResource Include="Signup.resx">
       <DependentUpon>Signup.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService.wsdl" />
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService.wsdl" />
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService.xsd">
       <SubType>Designer</SubType>
@@ -144,12 +162,6 @@
     </None>
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService3.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\CampusBook_BookStoreService\CampusBookClient.CampusBook_BookStoreService.BookStore.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\CampusBook_PatronService\CampusBookClient.CampusBook_PatronService.Patron.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\CampusBook_PatronService\PatronService.wsdl" />
     <None Include="Connected Services\CampusBook_PatronService\PatronService.xsd">
@@ -164,6 +176,12 @@
     <None Include="Connected Services\CampusBook_PatronService\PatronService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\CampusBook_PatronService\PatronService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\CampusBookService.BookRequest.datasource" />
+    <None Include="Properties\DataSources\CampusBookService.BookStore.datasource" />
+    <None Include="Properties\DataSources\CampusBookService.Patron.datasource" />
     <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -182,8 +200,30 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CampusBookService\CampusBookService.csproj">
+      <Project>{3A455860-57FA-4A85-8E72-364C9D78DA4A}</Project>
+      <Name>CampusBookService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CampusBook_BookRequestService_\" />
     <WCFMetadataStorage Include="Connected Services\CampusBook_BookStoreService\" />
     <WCFMetadataStorage Include="Connected Services\CampusBook_PatronService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CampusBook_PatronService\PatronService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CampusBook_PatronService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CampusBook_PatronService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CampusBook_PatronService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService.disco" />
@@ -201,16 +241,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\CampusBook_PatronService\PatronService.disco" />
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\CampusBook_PatronService\configuration91.svcinfo" />
+    <None Include="Connected Services\CampusBook_BookRequestService_\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\CampusBook_PatronService\configuration.svcinfo" />
+    <None Include="Connected Services\CampusBook_BookRequestService_\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\CampusBook_PatronService\Reference.svcmap">
+    <None Include="Connected Services\CampusBook_BookRequestService_\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

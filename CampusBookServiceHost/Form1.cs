@@ -28,6 +28,10 @@ namespace CampusBookServiceHost
             ServiceHost bookStoreService = new ServiceHost(typeof(CampusBookService.BookStoreService));
             bookStoreService.Open();
             label2.Text = "BookStoreService is running...";
+
+            ServiceHost bookRequestService = new ServiceHost(typeof(CampusBookService.BookRequestService));
+            bookRequestService.Open();
+            label3.Text = "BookRequestService is running...";
         }
     }
 }

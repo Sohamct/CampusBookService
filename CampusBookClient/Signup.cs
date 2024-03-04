@@ -4,12 +4,13 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using CampusBookService;
 
 namespace CampusBookClient
 {
     public partial class Signup : Form
     {
-        private IPatronService _patronService;
+        private CampusBook_PatronService.IPatronService _patronService;
         public Signup()
         {
             InitializeComponent();

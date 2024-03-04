@@ -121,20 +121,20 @@ namespace CampusBookService
                         string newImagePath = SaveBookImage(newBookImage);
 
                         cmd = new SqlCommand(
-                            "UPDATE BookStore SET bookname = @bookname, authorname = @authorname, " +
+                            "UPDATE BookStore SET isbn=@isbn, bookname = @bookname, authorname = @authorname, " +
                             "subject = @subject, description = @description, branch = @branch, " +
-                            "pages = @pages, returnDate = @returnDate, borrowerUsername = @borrowerUsername, " +
+                            "pages = @pages, returnDate = @returnDate, " +
                             "bookImagePath = @bookImagePath " +
-                            "WHERE isbn = @isbn AND ownerUsername = @ownerUsername", conn);
+                            "WHERE ownerUsername = @ownerUsername", conn);
                         cmd.Parameters.AddWithValue("@bookImagePath", newImagePath);
                     }
                     else
                     {
                         cmd = new SqlCommand(
-                            "UPDATE BookStore SET bookname = @bookname, authorname = @authorname, " +
+                            "UPDATE BookStore SET isbn=@isbn, bookname = @bookname, authorname = @authorname, " +
                             "subject = @subject, description = @description, branch = @branch, " +
-                            "pages = @pages, returnDate = @returnDate, borrowerUsername = @borrowerUsername " +
-                            "WHERE isbn = @isbn AND ownerUsername = @ownerUsername", conn);
+                            "pages = @pages, returnDate = @returnDate " +
+                            "WHERE ownerUsername = @ownerUsername", conn);
                     }
                     cmd.Parameters.AddWithValue("@isbn", book.isbn);
                     cmd.Parameters.AddWithValue("@bookname", book.bookname);
@@ -144,7 +144,6 @@ namespace CampusBookService
                     cmd.Parameters.AddWithValue("@branch", book.branch);
                     cmd.Parameters.AddWithValue("@pages", book.pages);
                     cmd.Parameters.AddWithValue("@returnDate", book.returnDate);
-                    cmd.Parameters.AddWithValue("@borrowerUsername", book.borrowerUsername);
                     cmd.Parameters.AddWithValue("@ownerUsername", username);
 
                     int rowsAffected = cmd.ExecuteNonQuery();

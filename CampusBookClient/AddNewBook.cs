@@ -5,13 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.ServiceModel.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using CampusBookClient.CampusBook_BookStoreService;
 using CampusBookClient.CampusBook_PatronService;
+using CampusBookService;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CampusBookClient
@@ -20,9 +18,9 @@ namespace CampusBookClient
     {
         private readonly DataRow bookRow;
 
-        private IPatronService _patronService;
-        private IBookStoreService _bookStoreService;
-        private byte[] fileBytes;
+        private CampusBook_PatronService.IPatronService _patronService;
+        private CampusBook_BookStoreService.IBookStoreService _bookStoreService;
+        private byte[] fileBytes = null;
         private string username;
         public AddNewBook(DataRow bookRow, string username)
         {
@@ -100,9 +98,11 @@ namespace CampusBookClient
 
         private void Submit_Clicked(object sender, EventArgs e)
         {
-            try
+            if(bookRow == null)
             {
-                Console.WriteLine(dateTimePicker.Value);
+                try
+                {
+                    // Console.WriteLine(dateTimePicker.Value);
                     BookStore book = new BookStore
                     {
                         isbn = isbn.Text,
@@ -119,9 +119,42 @@ namespace CampusBookClient
                     _bookStoreService.InsertBook(book, username);
                     MessageBox.Show("Book submitted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            }catch(Exception ex){
-                MessageBox.Show($"Failed to submit book: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to submit book: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            else
+            {
+                try
+                {
+                    BookStore book = new BookStore
+                    {
+                        isbn = isbn.Text,
+                        branch = branchComboBox.Text,
+                        bookname = bookName.Text,
+                        authorname = authorName.Text,
+                        ownerUsername = username,
+                        subject = subject.Text,
+                        pages = Convert.ToInt32(pages.Text),
+                        description = description.Text,
+                        bookimage = (fileBytes != null) ? Convert.ToBase64String(fileBytes) : "",
+                        returnDate = dateTimePicker.Value
+                    };
+                    Console.WriteLine(fileBytes);
+                    Console.WriteLine(username);
+                    _bookStoreService.EditBookByIsbn(book,fileBytes, username);
+
+                    MessageBox.Show("Book updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to update book: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
         }
 
         private void Back_Click(object sender, EventArgs e)

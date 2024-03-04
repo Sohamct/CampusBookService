@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -20,6 +21,8 @@ namespace CampusBookService
         Patron LoginPatron(string username, string password);
         [OperationContract]
         bool LogoutPatron(string username);
+        [OperationContract]
+        DataSet GetPatronsFullNameByUsername(List<string> usernames);
 
     }
 }

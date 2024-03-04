@@ -1,4 +1,5 @@
 ﻿using CampusBookClient.CampusBook_PatronService;
+using CampusBookService;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -7,7 +8,7 @@ namespace CampusBookClient
 {
     public partial class Login : Form
     {
-        private IPatronService _patronService;
+        private CampusBook_PatronService.IPatronService _patronService;
         public Login()
         {
             InitializeComponent();

@@ -9,150 +9,23 @@
 //------------------------------------------------------------------------------
 
 namespace CampusBookClient.CampusBook_PatronService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Patron", Namespace="http://schemas.datacontract.org/2004/07/CampusBookService")]
-    [System.SerializableAttribute()]
-    public partial class Patron : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string BranchField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string fnameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string lnameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string passwordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime registrationDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string unameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Branch {
-            get {
-                return this.BranchField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BranchField, value) != true)) {
-                    this.BranchField = value;
-                    this.RaisePropertyChanged("Branch");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string fname {
-            get {
-                return this.fnameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.fnameField, value) != true)) {
-                    this.fnameField = value;
-                    this.RaisePropertyChanged("fname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string lname {
-            get {
-                return this.lnameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.lnameField, value) != true)) {
-                    this.lnameField = value;
-                    this.RaisePropertyChanged("lname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string password {
-            get {
-                return this.passwordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
-                    this.passwordField = value;
-                    this.RaisePropertyChanged("password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime registrationDate {
-            get {
-                return this.registrationDateField;
-            }
-            set {
-                if ((this.registrationDateField.Equals(value) != true)) {
-                    this.registrationDateField = value;
-                    this.RaisePropertyChanged("registrationDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string uname {
-            get {
-                return this.unameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.unameField, value) != true)) {
-                    this.unameField = value;
-                    this.RaisePropertyChanged("uname");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CampusBook_PatronService.IPatronService")]
     public interface IPatronService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/GetPatronByUsername", ReplyAction="http://tempuri.org/IPatronService/GetPatronByUsernameResponse")]
-        CampusBookClient.CampusBook_PatronService.Patron GetPatronByUsername(string username);
+        CampusBookService.Patron GetPatronByUsername(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/GetPatronByUsername", ReplyAction="http://tempuri.org/IPatronService/GetPatronByUsernameResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> GetPatronByUsernameAsync(string username);
+        System.Threading.Tasks.Task<CampusBookService.Patron> GetPatronByUsernameAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/SignupPatron", ReplyAction="http://tempuri.org/IPatronService/SignupPatronResponse")]
-        CampusBookClient.CampusBook_PatronService.Patron SignupPatron(CampusBookClient.CampusBook_PatronService.Patron pt);
+        CampusBookService.Patron SignupPatron(CampusBookService.Patron pt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/SignupPatron", ReplyAction="http://tempuri.org/IPatronService/SignupPatronResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> SignupPatronAsync(CampusBookClient.CampusBook_PatronService.Patron pt);
+        System.Threading.Tasks.Task<CampusBookService.Patron> SignupPatronAsync(CampusBookService.Patron pt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/GetValidBranches", ReplyAction="http://tempuri.org/IPatronService/GetValidBranchesResponse")]
         string[] GetValidBranches();
@@ -161,16 +34,22 @@ namespace CampusBookClient.CampusBook_PatronService {
         System.Threading.Tasks.Task<string[]> GetValidBranchesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/LoginPatron", ReplyAction="http://tempuri.org/IPatronService/LoginPatronResponse")]
-        CampusBookClient.CampusBook_PatronService.Patron LoginPatron(string username, string password);
+        CampusBookService.Patron LoginPatron(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/LoginPatron", ReplyAction="http://tempuri.org/IPatronService/LoginPatronResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> LoginPatronAsync(string username, string password);
+        System.Threading.Tasks.Task<CampusBookService.Patron> LoginPatronAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/LogoutPatron", ReplyAction="http://tempuri.org/IPatronService/LogoutPatronResponse")]
         bool LogoutPatron(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/LogoutPatron", ReplyAction="http://tempuri.org/IPatronService/LogoutPatronResponse")]
         System.Threading.Tasks.Task<bool> LogoutPatronAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/GetPatronsFullNameByUsername", ReplyAction="http://tempuri.org/IPatronService/GetPatronsFullNameByUsernameResponse")]
+        System.Data.DataSet GetPatronsFullNameByUsername(string[] usernames);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPatronService/GetPatronsFullNameByUsername", ReplyAction="http://tempuri.org/IPatronService/GetPatronsFullNameByUsernameResponse")]
+        System.Threading.Tasks.Task<System.Data.DataSet> GetPatronsFullNameByUsernameAsync(string[] usernames);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -200,19 +79,19 @@ namespace CampusBookClient.CampusBook_PatronService {
                 base(binding, remoteAddress) {
         }
         
-        public CampusBookClient.CampusBook_PatronService.Patron GetPatronByUsername(string username) {
+        public CampusBookService.Patron GetPatronByUsername(string username) {
             return base.Channel.GetPatronByUsername(username);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> GetPatronByUsernameAsync(string username) {
+        public System.Threading.Tasks.Task<CampusBookService.Patron> GetPatronByUsernameAsync(string username) {
             return base.Channel.GetPatronByUsernameAsync(username);
         }
         
-        public CampusBookClient.CampusBook_PatronService.Patron SignupPatron(CampusBookClient.CampusBook_PatronService.Patron pt) {
+        public CampusBookService.Patron SignupPatron(CampusBookService.Patron pt) {
             return base.Channel.SignupPatron(pt);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> SignupPatronAsync(CampusBookClient.CampusBook_PatronService.Patron pt) {
+        public System.Threading.Tasks.Task<CampusBookService.Patron> SignupPatronAsync(CampusBookService.Patron pt) {
             return base.Channel.SignupPatronAsync(pt);
         }
         
@@ -224,11 +103,11 @@ namespace CampusBookClient.CampusBook_PatronService {
             return base.Channel.GetValidBranchesAsync();
         }
         
-        public CampusBookClient.CampusBook_PatronService.Patron LoginPatron(string username, string password) {
+        public CampusBookService.Patron LoginPatron(string username, string password) {
             return base.Channel.LoginPatron(username, password);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_PatronService.Patron> LoginPatronAsync(string username, string password) {
+        public System.Threading.Tasks.Task<CampusBookService.Patron> LoginPatronAsync(string username, string password) {
             return base.Channel.LoginPatronAsync(username, password);
         }
         
@@ -238,6 +117,14 @@ namespace CampusBookClient.CampusBook_PatronService {
         
         public System.Threading.Tasks.Task<bool> LogoutPatronAsync(string username) {
             return base.Channel.LogoutPatronAsync(username);
+        }
+        
+        public System.Data.DataSet GetPatronsFullNameByUsername(string[] usernames) {
+            return base.Channel.GetPatronsFullNameByUsername(usernames);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> GetPatronsFullNameByUsernameAsync(string[] usernames) {
+            return base.Channel.GetPatronsFullNameByUsernameAsync(usernames);
         }
     }
 }

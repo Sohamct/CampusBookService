@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="PatronService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_policy">
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="BookRequestService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -96,7 +96,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetPatronByUsername_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_makeNewRequest_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -115,7 +115,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetPatronByUsername_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_makeNewRequest_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -134,7 +134,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_SignupPatron_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_cancelRequest_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -153,7 +153,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_SignupPatron_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_cancelRequest_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -172,7 +172,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetValidBranches_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_acceptRequest_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -191,7 +191,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetValidBranches_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_acceptRequest_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -210,7 +210,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_LoginPatron_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_rejectRequest_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -229,83 +229,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_LoginPatron_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_LogoutPatron_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_LogoutPatron_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetPatronsFullNameByUsername_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IPatronService_GetPatronsFullNameByUsername_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookRequestService_rejectRequest_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -326,150 +250,105 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/PatronService?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/PatronService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/PatronService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CampusBookService" />
-      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/PatronService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/PatronService?xsd=xsd4" />
+      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookRequestService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookRequestService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IPatronService_GetPatronByUsername_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPatronByUsername" />
+  <wsdl:message name="IBookRequestService_makeNewRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:makeNewRequest" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_GetPatronByUsername_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPatronByUsernameResponse" />
+  <wsdl:message name="IBookRequestService_makeNewRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:makeNewRequestResponse" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_SignupPatron_InputMessage">
-    <wsdl:part name="parameters" element="tns:SignupPatron" />
+  <wsdl:message name="IBookRequestService_cancelRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:cancelRequest" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_SignupPatron_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SignupPatronResponse" />
+  <wsdl:message name="IBookRequestService_cancelRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:cancelRequestResponse" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_GetValidBranches_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidBranches" />
+  <wsdl:message name="IBookRequestService_acceptRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:acceptRequest" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_GetValidBranches_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidBranchesResponse" />
+  <wsdl:message name="IBookRequestService_acceptRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:acceptRequestResponse" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_LoginPatron_InputMessage">
-    <wsdl:part name="parameters" element="tns:LoginPatron" />
+  <wsdl:message name="IBookRequestService_rejectRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:rejectRequest" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_LoginPatron_OutputMessage">
-    <wsdl:part name="parameters" element="tns:LoginPatronResponse" />
+  <wsdl:message name="IBookRequestService_rejectRequest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:rejectRequestResponse" />
   </wsdl:message>
-  <wsdl:message name="IPatronService_LogoutPatron_InputMessage">
-    <wsdl:part name="parameters" element="tns:LogoutPatron" />
-  </wsdl:message>
-  <wsdl:message name="IPatronService_LogoutPatron_OutputMessage">
-    <wsdl:part name="parameters" element="tns:LogoutPatronResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPatronService_GetPatronsFullNameByUsername_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPatronsFullNameByUsername" />
-  </wsdl:message>
-  <wsdl:message name="IPatronService_GetPatronsFullNameByUsername_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPatronsFullNameByUsernameResponse" />
-  </wsdl:message>
-  <wsdl:portType name="IPatronService">
-    <wsdl:operation name="GetPatronByUsername">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/GetPatronByUsername" message="tns:IPatronService_GetPatronByUsername_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/GetPatronByUsernameResponse" message="tns:IPatronService_GetPatronByUsername_OutputMessage" />
+  <wsdl:portType name="IBookRequestService">
+    <wsdl:operation name="makeNewRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookRequestService/makeNewRequest" message="tns:IBookRequestService_makeNewRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookRequestService/makeNewRequestResponse" message="tns:IBookRequestService_makeNewRequest_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SignupPatron">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/SignupPatron" message="tns:IPatronService_SignupPatron_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/SignupPatronResponse" message="tns:IPatronService_SignupPatron_OutputMessage" />
+    <wsdl:operation name="cancelRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookRequestService/cancelRequest" message="tns:IBookRequestService_cancelRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookRequestService/cancelRequestResponse" message="tns:IBookRequestService_cancelRequest_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetValidBranches">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/GetValidBranches" message="tns:IPatronService_GetValidBranches_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/GetValidBranchesResponse" message="tns:IPatronService_GetValidBranches_OutputMessage" />
+    <wsdl:operation name="acceptRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookRequestService/acceptRequest" message="tns:IBookRequestService_acceptRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookRequestService/acceptRequestResponse" message="tns:IBookRequestService_acceptRequest_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="LoginPatron">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/LoginPatron" message="tns:IPatronService_LoginPatron_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/LoginPatronResponse" message="tns:IPatronService_LoginPatron_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="LogoutPatron">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/LogoutPatron" message="tns:IPatronService_LogoutPatron_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/LogoutPatronResponse" message="tns:IPatronService_LogoutPatron_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPatronsFullNameByUsername">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPatronService/GetPatronsFullNameByUsername" message="tns:IPatronService_GetPatronsFullNameByUsername_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPatronService/GetPatronsFullNameByUsernameResponse" message="tns:IPatronService_GetPatronsFullNameByUsername_OutputMessage" />
+    <wsdl:operation name="rejectRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookRequestService/rejectRequest" message="tns:IBookRequestService_rejectRequest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookRequestService/rejectRequestResponse" message="tns:IBookRequestService_rejectRequest_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="WSHttpBinding_IPatronService" type="tns:IPatronService">
-    <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_policy" />
+  <wsdl:binding name="WSHttpBinding_IBookRequestService" type="tns:IBookRequestService">
+    <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetPatronByUsername">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/GetPatronByUsername" style="document" />
+    <wsdl:operation name="makeNewRequest">
+      <soap12:operation soapAction="http://tempuri.org/IBookRequestService/makeNewRequest" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetPatronByUsername_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_makeNewRequest_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetPatronByUsername_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_makeNewRequest_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SignupPatron">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/SignupPatron" style="document" />
+    <wsdl:operation name="cancelRequest">
+      <soap12:operation soapAction="http://tempuri.org/IBookRequestService/cancelRequest" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_SignupPatron_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_cancelRequest_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_SignupPatron_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_cancelRequest_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetValidBranches">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/GetValidBranches" style="document" />
+    <wsdl:operation name="acceptRequest">
+      <soap12:operation soapAction="http://tempuri.org/IBookRequestService/acceptRequest" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetValidBranches_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_acceptRequest_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetValidBranches_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_acceptRequest_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="LoginPatron">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/LoginPatron" style="document" />
+    <wsdl:operation name="rejectRequest">
+      <soap12:operation soapAction="http://tempuri.org/IBookRequestService/rejectRequest" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_LoginPatron_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_rejectRequest_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_LoginPatron_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="LogoutPatron">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/LogoutPatron" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_LogoutPatron_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_LogoutPatron_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPatronsFullNameByUsername">
-      <soap12:operation soapAction="http://tempuri.org/IPatronService/GetPatronsFullNameByUsername" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetPatronsFullNameByUsername_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IPatronService_GetPatronsFullNameByUsername_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookRequestService_rejectRequest_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="PatronService">
-    <wsdl:port name="WSHttpBinding_IPatronService" binding="tns:WSHttpBinding_IPatronService">
-      <soap12:address location="http://localhost:8736/CampusBookService/PatronService" />
+  <wsdl:service name="BookRequestService">
+    <wsdl:port name="WSHttpBinding_IBookRequestService" binding="tns:WSHttpBinding_IBookRequestService">
+      <soap12:address location="http://localhost:8736/CampusBookService/BookRequestService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:8736/CampusBookService/PatronService</wsa10:Address>
+        <wsa10:Address>http://localhost:8736/CampusBookService/BookRequestService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Upn>DESKTOP-LLLO1D0\SOHAM</Upn>
         </Identity>

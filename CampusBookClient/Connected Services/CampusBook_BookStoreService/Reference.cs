@@ -9,230 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace CampusBookClient.CampusBook_BookStoreService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BookStore", Namespace="http://schemas.datacontract.org/2004/07/CampusBookService")]
-    [System.SerializableAttribute()]
-    public partial class BookStore : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string authornameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string bookimageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string booknameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string borrowerUsernameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string branchField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool isAvailableField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string isbnField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ownerUsernameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int pagesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime returnDateField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string subjectField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string authorname {
-            get {
-                return this.authornameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.authornameField, value) != true)) {
-                    this.authornameField = value;
-                    this.RaisePropertyChanged("authorname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string bookimage {
-            get {
-                return this.bookimageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.bookimageField, value) != true)) {
-                    this.bookimageField = value;
-                    this.RaisePropertyChanged("bookimage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string bookname {
-            get {
-                return this.booknameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.booknameField, value) != true)) {
-                    this.booknameField = value;
-                    this.RaisePropertyChanged("bookname");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string borrowerUsername {
-            get {
-                return this.borrowerUsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.borrowerUsernameField, value) != true)) {
-                    this.borrowerUsernameField = value;
-                    this.RaisePropertyChanged("borrowerUsername");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string branch {
-            get {
-                return this.branchField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.branchField, value) != true)) {
-                    this.branchField = value;
-                    this.RaisePropertyChanged("branch");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
-                    this.descriptionField = value;
-                    this.RaisePropertyChanged("description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool isAvailable {
-            get {
-                return this.isAvailableField;
-            }
-            set {
-                if ((this.isAvailableField.Equals(value) != true)) {
-                    this.isAvailableField = value;
-                    this.RaisePropertyChanged("isAvailable");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string isbn {
-            get {
-                return this.isbnField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.isbnField, value) != true)) {
-                    this.isbnField = value;
-                    this.RaisePropertyChanged("isbn");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ownerUsername {
-            get {
-                return this.ownerUsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ownerUsernameField, value) != true)) {
-                    this.ownerUsernameField = value;
-                    this.RaisePropertyChanged("ownerUsername");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int pages {
-            get {
-                return this.pagesField;
-            }
-            set {
-                if ((this.pagesField.Equals(value) != true)) {
-                    this.pagesField = value;
-                    this.RaisePropertyChanged("pages");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime returnDate {
-            get {
-                return this.returnDateField;
-            }
-            set {
-                if ((this.returnDateField.Equals(value) != true)) {
-                    this.returnDateField = value;
-                    this.RaisePropertyChanged("returnDate");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string subject {
-            get {
-                return this.subjectField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.subjectField, value) != true)) {
-                    this.subjectField = value;
-                    this.RaisePropertyChanged("subject");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CampusBook_BookStoreService.IBookStoreService")]
@@ -251,16 +28,16 @@ namespace CampusBookClient.CampusBook_BookStoreService {
         System.Threading.Tasks.Task<System.Data.DataSet> getBooksOfOwnerAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/GetBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/GetBookByIsbnResponse")]
-        CampusBookClient.CampusBook_BookStoreService.BookStore GetBookByIsbn(string isbn, string username);
+        CampusBookService.BookStore GetBookByIsbn(string isbn, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/GetBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/GetBookByIsbnResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> GetBookByIsbnAsync(string isbn, string username);
+        System.Threading.Tasks.Task<CampusBookService.BookStore> GetBookByIsbnAsync(string isbn, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/EditBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/EditBookByIsbnResponse")]
-        CampusBookClient.CampusBook_BookStoreService.BookStore EditBookByIsbn(CampusBookClient.CampusBook_BookStoreService.BookStore book, byte[] bookImage, string username);
+        CampusBookService.BookStore EditBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/EditBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/EditBookByIsbnResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> EditBookByIsbnAsync(CampusBookClient.CampusBook_BookStoreService.BookStore book, byte[] bookImage, string username);
+        System.Threading.Tasks.Task<CampusBookService.BookStore> EditBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/deleteBook", ReplyAction="http://tempuri.org/IBookStoreService/deleteBookResponse")]
         void deleteBook(string isbn, string username);
@@ -269,10 +46,10 @@ namespace CampusBookClient.CampusBook_BookStoreService {
         System.Threading.Tasks.Task deleteBookAsync(string isbn, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/InsertBook", ReplyAction="http://tempuri.org/IBookStoreService/InsertBookResponse")]
-        CampusBookClient.CampusBook_BookStoreService.BookStore InsertBook(CampusBookClient.CampusBook_BookStoreService.BookStore book, string username);
+        CampusBookService.BookStore InsertBook(CampusBookService.BookStore book, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/InsertBook", ReplyAction="http://tempuri.org/IBookStoreService/InsertBookResponse")]
-        System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> InsertBookAsync(CampusBookClient.CampusBook_BookStoreService.BookStore book, string username);
+        System.Threading.Tasks.Task<CampusBookService.BookStore> InsertBookAsync(CampusBookService.BookStore book, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -318,19 +95,19 @@ namespace CampusBookClient.CampusBook_BookStoreService {
             return base.Channel.getBooksOfOwnerAsync(username);
         }
         
-        public CampusBookClient.CampusBook_BookStoreService.BookStore GetBookByIsbn(string isbn, string username) {
+        public CampusBookService.BookStore GetBookByIsbn(string isbn, string username) {
             return base.Channel.GetBookByIsbn(isbn, username);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> GetBookByIsbnAsync(string isbn, string username) {
+        public System.Threading.Tasks.Task<CampusBookService.BookStore> GetBookByIsbnAsync(string isbn, string username) {
             return base.Channel.GetBookByIsbnAsync(isbn, username);
         }
         
-        public CampusBookClient.CampusBook_BookStoreService.BookStore EditBookByIsbn(CampusBookClient.CampusBook_BookStoreService.BookStore book, byte[] bookImage, string username) {
+        public CampusBookService.BookStore EditBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username) {
             return base.Channel.EditBookByIsbn(book, bookImage, username);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> EditBookByIsbnAsync(CampusBookClient.CampusBook_BookStoreService.BookStore book, byte[] bookImage, string username) {
+        public System.Threading.Tasks.Task<CampusBookService.BookStore> EditBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username) {
             return base.Channel.EditBookByIsbnAsync(book, bookImage, username);
         }
         
@@ -342,11 +119,11 @@ namespace CampusBookClient.CampusBook_BookStoreService {
             return base.Channel.deleteBookAsync(isbn, username);
         }
         
-        public CampusBookClient.CampusBook_BookStoreService.BookStore InsertBook(CampusBookClient.CampusBook_BookStoreService.BookStore book, string username) {
+        public CampusBookService.BookStore InsertBook(CampusBookService.BookStore book, string username) {
             return base.Channel.InsertBook(book, username);
         }
         
-        public System.Threading.Tasks.Task<CampusBookClient.CampusBook_BookStoreService.BookStore> InsertBookAsync(CampusBookClient.CampusBook_BookStoreService.BookStore book, string username) {
+        public System.Threading.Tasks.Task<CampusBookService.BookStore> InsertBookAsync(CampusBookService.BookStore book, string username) {
             return base.Channel.InsertBookAsync(book, username);
         }
     }
