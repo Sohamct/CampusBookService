@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.AcceptedReqFullName = new System.Windows.Forms.Label();
             this.AcceptOrReject = new System.Windows.Forms.Button();
             this.requesterCombobox = new System.Windows.Forms.ComboBox();
             this.requestStatus2 = new System.Windows.Forms.Label();
@@ -57,13 +58,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.bookImage = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.HomeBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookImage)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.panel1.Controls.Add(this.AcceptedReqFullName);
             this.panel1.Controls.Add(this.AcceptOrReject);
             this.panel1.Controls.Add(this.requesterCombobox);
             this.panel1.Controls.Add(this.requestStatus2);
@@ -97,9 +102,18 @@
             this.panel1.Size = new System.Drawing.Size(986, 835);
             this.panel1.TabIndex = 0;
             // 
+            // AcceptedReqFullName
+            // 
+            this.AcceptedReqFullName.AutoSize = true;
+            this.AcceptedReqFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.AcceptedReqFullName.Location = new System.Drawing.Point(659, 118);
+            this.AcceptedReqFullName.Name = "AcceptedReqFullName";
+            this.AcceptedReqFullName.Size = new System.Drawing.Size(0, 24);
+            this.AcceptedReqFullName.TabIndex = 29;
+            // 
             // AcceptOrReject
             // 
-            this.AcceptOrReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.AcceptOrReject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
             this.AcceptOrReject.ForeColor = System.Drawing.Color.DarkCyan;
             this.AcceptOrReject.Location = new System.Drawing.Point(846, 181);
             this.AcceptOrReject.Name = "AcceptOrReject";
@@ -140,7 +154,7 @@
             // 
             // editBtn
             // 
-            this.editBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.editBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
             this.editBtn.ForeColor = System.Drawing.Color.Green;
             this.editBtn.Location = new System.Drawing.Point(663, 33);
             this.editBtn.Name = "editBtn";
@@ -152,7 +166,7 @@
             // 
             // deleteBtn
             // 
-            this.deleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.deleteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
             this.deleteBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.deleteBtn.Location = new System.Drawing.Point(817, 33);
             this.deleteBtn.Name = "deleteBtn";
@@ -365,11 +379,39 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.HomeBtn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(238, 835);
             this.panel2.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.AutoEllipsis = true;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.button1.Location = new System.Drawing.Point(28, 177);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(156, 40);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Logout";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Logout_Click);
+            // 
+            // HomeBtn
+            // 
+            this.HomeBtn.AutoEllipsis = true;
+            this.HomeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.HomeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.HomeBtn.Location = new System.Drawing.Point(30, 84);
+            this.HomeBtn.Name = "HomeBtn";
+            this.HomeBtn.Size = new System.Drawing.Size(156, 40);
+            this.HomeBtn.TabIndex = 3;
+            this.HomeBtn.Text = "Home";
+            this.HomeBtn.UseVisualStyleBackColor = false;
+            this.HomeBtn.Click += new System.EventHandler(this.Home_Click);
             // 
             // BookDetails
             // 
@@ -383,6 +425,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookImage)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -418,5 +461,8 @@
         private System.Windows.Forms.Label requestStatus2;
         private System.Windows.Forms.Button AcceptOrReject;
         private System.Windows.Forms.ComboBox requesterCombobox;
+        private System.Windows.Forms.Label AcceptedReqFullName;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button HomeBtn;
     }
 }

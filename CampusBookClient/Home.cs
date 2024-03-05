@@ -7,12 +7,14 @@ using System.Data;
 using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
+using CampusBookService;
 
 namespace CampusBookClient
 {
     public partial class Home : Form
     {
-        private IBookStoreService bookStoreService;
+        private CampusBook_PatronService.IPatronService patronService;
+        private CampusBook_BookStoreService.IBookStoreService bookStoreService;
         private string loggedInUsername;
         public Home(string username)
         {
@@ -117,6 +119,14 @@ namespace CampusBookClient
                 }
             }
             return dataList;
+        }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            patronService.LogoutPatron(loggedInUsername);
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
     }
 }
