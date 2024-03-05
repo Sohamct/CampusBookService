@@ -34,8 +34,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.AddNewBook = new System.Windows.Forms.Button();
             this.MyBook = new System.Windows.Forms.Button();
+            this.AddNewBook = new System.Windows.Forms.Button();
+            this.LogoutBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +96,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.Controls.Add(this.LogoutBtn);
             this.panel2.Controls.Add(this.MyBook);
             this.panel2.Controls.Add(this.AddNewBook);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -102,6 +104,19 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(187, 845);
             this.panel2.TabIndex = 4;
+            // 
+            // MyBook
+            // 
+            this.MyBook.AutoEllipsis = true;
+            this.MyBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.MyBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.MyBook.Location = new System.Drawing.Point(12, 169);
+            this.MyBook.Name = "MyBook";
+            this.MyBook.Size = new System.Drawing.Size(156, 40);
+            this.MyBook.TabIndex = 1;
+            this.MyBook.Text = "My Books";
+            this.MyBook.UseVisualStyleBackColor = false;
+            this.MyBook.Click += new System.EventHandler(this.MyBooks_Clicked);
             // 
             // AddNewBook
             // 
@@ -116,18 +131,18 @@
             this.AddNewBook.UseVisualStyleBackColor = false;
             this.AddNewBook.Click += new System.EventHandler(this.AddNewBook_Clicked);
             // 
-            // MyBook
+            // LogoutBtn
             // 
-            this.MyBook.AutoEllipsis = true;
-            this.MyBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.MyBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.MyBook.Location = new System.Drawing.Point(12, 169);
-            this.MyBook.Name = "MyBook";
-            this.MyBook.Size = new System.Drawing.Size(156, 40);
-            this.MyBook.TabIndex = 1;
-            this.MyBook.Text = "My Books";
-            this.MyBook.UseVisualStyleBackColor = false;
-            this.MyBook.Click += new System.EventHandler(this.MyBooks_Clicked);
+            this.LogoutBtn.AutoEllipsis = true;
+            this.LogoutBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.LogoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.LogoutBtn.Location = new System.Drawing.Point(12, 266);
+            this.LogoutBtn.Name = "LogoutBtn";
+            this.LogoutBtn.Size = new System.Drawing.Size(156, 40);
+            this.LogoutBtn.TabIndex = 2;
+            this.LogoutBtn.Text = "Logout";
+            this.LogoutBtn.UseVisualStyleBackColor = false;
+            this.LogoutBtn.Click += new System.EventHandler(this.Logout_Click);
             // 
             // Home
             // 
@@ -156,5 +171,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button AddNewBook;
         private System.Windows.Forms.Button MyBook;
+        private System.Windows.Forms.Button LogoutBtn;
     }
 }

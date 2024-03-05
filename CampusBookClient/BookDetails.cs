@@ -21,6 +21,7 @@ namespace CampusBookClient
         private readonly string loggedInUsername;
         private DataRow bookRow;
         private bool isAccepted;
+        private string RequestAcceptedUsername;
         public BookDetails(DataRow bookRow, string loggedInUsername)
         {
             InitializeComponent();
@@ -39,13 +40,28 @@ namespace CampusBookClient
             else
             {
                 PopulateBookRequestInfo();
-                IsAcceptedOrNot();
+                this.isAccepted = IsAcceptedOrNot();
             }
             PopulateBookDetais(bookRow);
         }
-        private void IsAcceptedOrNot()
+        private bool IsAcceptedOrNot()
         {
-            bookRequestService.FetchRequestStatus();
+            try
+            {
+                BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
+                if (br == null || br.status == null) // either no request on book or request is there but not any accepted.
+                {
+                    return false;
+                }
+                if (br.status == true)
+                {
+                    this.RequestAcceptedUsername = br.requester;
+                    return true;
+                }
+            }catch(Exception ex) {
+                MessageBox.Show("Failed to FetchRequestStat book: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return false;
         }
 
         private void PopulateBookRequestInfo()
@@ -212,26 +228,71 @@ namespace CampusBookClient
 
         private void AcceptOrRejectBtn_Clicked(object sender, EventArgs e)
         {
-            int startInd = requesterCombobox.Text.IndexOf('(');
-            int endInd = requesterCombobox.Text.IndexOf(')', startInd);
-            string borrowerUsername = requesterCombobox.Text.Substring(startInd + 1, endInd - startInd - 1);
-
-            if (string.IsNullOrEmpty(borrowerUsername))
+            if (isAccepted) // rejecting request
             {
-                MessageBox.Show("Please select a borrower to accept the request", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else
-            {
-                if(requestStatus.Visible == false)
+                try
                 {
-                    // 
+                    Patron patron = patronService.GetPatronByUsername(RequestAcceptedUsername);
+                    Console.WriteLine("GetPatronByUsername is called");
+                    AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
+                    AcceptOrReject.Text = "Reject";
+                    // calling reject request
+                    bookRequestService.rejectRequest(loggedInUsername, RequestAcceptedUsername, bookRow["isbn"].ToString());
                 }
-                else
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
+            else // accepting request
+            {
+                //Console.WriteLine("Comming in th e else part....................1.........................");
+                int startInd = requesterCombobox.Text.IndexOf('(');
+                int endInd = requesterCombobox.Text.IndexOf(')', startInd);
+                string borrowerUsername = requesterCombobox.Text.Substring(startInd + 1, endInd - startInd - 1);
+
+                if (string.IsNullOrEmpty(borrowerUsername))
+                {
+                    MessageBox.Show("Please select a borrower to accept the request", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                try
+                {
+                    //Console.WriteLine("Comming in th e else part....................2.........................");
+                    Console.WriteLine(borrowerUsername);
+                    Patron patron = patronService.GetPatronByUsername(borrowerUsername);
+                    //Console.WriteLine("GetPatronByUsername is called");
+                    AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
+                    AcceptOrReject.Text = "Accept";
+                    //Console.WriteLine("Comming in th e else part....................3.........................");
+
+                    // calling accept request
+                    bookRequestService.acceptRequestAsync(loggedInUsername, borrowerUsername, bookRow["isbn"].ToString());
+                    requesterCombobox.Visible = false;
+                    this.isAccepted = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+        }
+
+        private void Home_Click(object sender, EventArgs e)
+        {
+            Home home = new Home(loggedInUsername);
+            home.Show();
+            this.Hide();
+        }
+
+        private void Logout_Click(object sender, EventArgs e)
+        {
+            patronService.LogoutPatron(loggedInUsername);
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
     }
 }

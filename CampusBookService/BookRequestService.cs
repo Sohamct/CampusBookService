@@ -23,7 +23,7 @@ namespace CampusBookService
                 }
                 using (SqlConnection conn = new SqlConnection(cs))
                 {
-                    conn.Open(); 
+                    conn.Open();
                     SqlCommand cmd = new SqlCommand("SELECT 1 FROM BookStore WHERE isbn = @isbn AND ownerUsername = @ownerUsername", conn);
                     cmd.Parameters.AddWithValue("@isbn", isbn);
                     cmd.Parameters.AddWithValue("@ownerUsername", owner);
