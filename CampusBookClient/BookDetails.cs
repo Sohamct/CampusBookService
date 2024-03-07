@@ -40,29 +40,9 @@ namespace CampusBookClient
             else
             {
                 PopulateBookRequestInfo();
-                //this.isAccepted = IsAcceptedOrNot();
             }
             PopulateBookDetais(bookRow);
         }
-        //private bool IsAcceptedOrNot()
-        //{
-        //    try
-        //    {
-        //        BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
-        //        if (br == null || br.status == null) // either no request on book or request is there but not any accepted.
-        //        {
-        //            return false;
-        //        }
-        //        if (br.status == true)
-        //        {
-        //            this.RequestAcceptedUsername = br.requester;
-        //            return true;
-        //        }
-        //    }catch(Exception ex) {
-        //        MessageBox.Show("Failed to FetchRequestStat book: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    return false;
-        //}
 
         private void PopulateBookRequestInfo()
         {
@@ -101,7 +81,6 @@ namespace CampusBookClient
                             string username = row["username"].ToString();
                             string data = fname + " " + lname + " (" + username + ")";
                             requesterCombobox.Items.Add(data);
-                            // Console.WriteLine(data);
                         }
                     }
                 }
@@ -112,20 +91,20 @@ namespace CampusBookClient
                     requesterCombobox.Visible = false;
                     AcceptOrReject.Text = "Reject";
                     AcceptOrReject.ForeColor = Color.Red;
-
                 }
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-
         }
         private void PopulateBookDetais(DataRow bookRow)
         {
+            Patron pt = patronService.GetPatronByUsername(bookRow["ownerUsername"].ToString());
+
             Console.WriteLine("PopulateBookDetais");
             bookName.Text = bookRow["bookname"].ToString();
-            bookOwner.Text = bookRow["ownerUsername"].ToString();
+            bookOwner.Text = pt.fname + " " + pt.lname +" ("+bookRow["ownerUsername"].ToString()+ ")";
             bookAuthor.Text = bookRow["authorname"].ToString();
             subject.Text = bookRow["subject"].ToString();
             branch.Text = bookRow["branch"].ToString();
@@ -157,7 +136,6 @@ namespace CampusBookClient
             bool isOwner = string.Equals(ownerUsername, loggedInUsername);
             editBtn.Visible = isOwner;
             deleteBtn.Visible = isOwner;
-            
         }
 
         private void EditBtn_Clicked(object sender, EventArgs e)
@@ -182,8 +160,6 @@ namespace CampusBookClient
                         return;
                     }
 
-                    Console.WriteLine(bookIsbn);
-                    Console.WriteLine(username);
                     await bookStoreService.deleteBookAsync(bookIsbn, username);
 
                     MessageBox.Show("Book deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -191,7 +167,6 @@ namespace CampusBookClient
                     Home home = new Home(username);
                     home.Show();
                     this.Close();
-
                 }
                 catch (Exception ex)
                 {
@@ -241,7 +216,7 @@ namespace CampusBookClient
             else if (br.status == true)
             {
                 requestStatus.Visible = false;
-                requestStatus2.Text = "Accepted !";
+                requestStatus2.Text = "Request is Accepted !";
                 requestStatus2.ForeColor = Color.Green;
             }
         }
@@ -272,6 +247,7 @@ namespace CampusBookClient
                     bookRequestService.rejectRequest(loggedInUsername, RequestAcceptedUsername, bookRow["isbn"].ToString());
                     this.isAccepted = false;
                     AcceptedReqFullName.Text = "";
+                    requesterCombobox.Visible = true;
                     AcceptOrReject.Text = "Accept";
                     AcceptOrReject.ForeColor = Color.Green;
                     RemoveitemContainingSubstring(RequestAcceptedUsername);
