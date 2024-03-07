@@ -20,8 +20,8 @@ namespace CampusBookClient
         private CampusBook_PatronService.IPatronService patronService;
         private readonly string loggedInUsername;
         private DataRow bookRow;
-        private bool isAccepted;
-        private string RequestAcceptedUsername;
+        private bool isAccepted = false;
+        private string RequestAcceptedUsername = "";
         public BookDetails(DataRow bookRow, string loggedInUsername)
         {
             InitializeComponent();
@@ -40,34 +40,32 @@ namespace CampusBookClient
             else
             {
                 PopulateBookRequestInfo();
-                this.isAccepted = IsAcceptedOrNot();
+                //this.isAccepted = IsAcceptedOrNot();
             }
             PopulateBookDetais(bookRow);
         }
-        private bool IsAcceptedOrNot()
-        {
-            try
-            {
-                BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
-                if (br == null || br.status == null) // either no request on book or request is there but not any accepted.
-                {
-                    return false;
-                }
-                if (br.status == true)
-                {
-                    this.RequestAcceptedUsername = br.requester;
-                    return true;
-                }
-            }catch(Exception ex) {
-                MessageBox.Show("Failed to FetchRequestStat book: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return false;
-        }
+        //private bool IsAcceptedOrNot()
+        //{
+        //    try
+        //    {
+        //        BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
+        //        if (br == null || br.status == null) // either no request on book or request is there but not any accepted.
+        //        {
+        //            return false;
+        //        }
+        //        if (br.status == true)
+        //        {
+        //            this.RequestAcceptedUsername = br.requester;
+        //            return true;
+        //        }
+        //    }catch(Exception ex) {
+        //        MessageBox.Show("Failed to FetchRequestStat book: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //    return false;
+        //}
 
         private void PopulateBookRequestInfo()
         {
-            Console.WriteLine("PopulateBookRequestInfo ....");
-
             try
             {
                 requestStatus.Visible = false; requestStatus2.Visible = false;
@@ -79,23 +77,45 @@ namespace CampusBookClient
                     DataTable requestTable = requestsDataSet.Tables[0];
                     foreach (DataRow row in requestTable.Rows)
                     {
+                        if (row["status"] != DBNull.Value && Convert.ToBoolean(row["status"]))
+                        {
+                            this.isAccepted = true;
+                            this.RequestAcceptedUsername = row["requester"].ToString();
+                            break;
+                        }
                         usernames.Add(row["requester"].ToString());
                     }
+                    AcceptOrReject.Text = "Accept";
+                    AcceptOrReject.ForeColor = Color.Green;
+                    requesterCombobox.Visible= true;
                 }
-                DataSet resultFullName = patronService.GetPatronsFullNameByUsername(usernames.ToArray());
-                foreach (DataTable table in resultFullName.Tables)
+                if (!this.isAccepted)
                 {
-                    foreach (DataRow row in table.Rows)
+                    DataSet resultFullName = patronService.GetPatronsFullNameByUsername(usernames.ToArray());
+                    foreach (DataTable table in resultFullName.Tables)
                     {
-                        string fname = row["firstname"].ToString();
-                        string lname = row["lastname"].ToString();
-                        string username = row["username"].ToString();
-                        string data = fname + " " + lname + " (" + username + ")";
-                        requesterCombobox.Items.Add(data);
-                        // Console.WriteLine(data);
+                        foreach (DataRow row in table.Rows)
+                        {
+                            string fname = row["firstname"].ToString();
+                            string lname = row["lastname"].ToString();
+                            string username = row["username"].ToString();
+                            string data = fname + " " + lname + " (" + username + ")";
+                            requesterCombobox.Items.Add(data);
+                            // Console.WriteLine(data);
+                        }
                     }
                 }
-            }catch(Exception e)
+                else
+                {
+                    Patron pt = patronService.GetPatronByUsername(this.RequestAcceptedUsername);
+                    AcceptedReqFullName.Text = pt.fname + " " + pt.lname + "(" + pt.uname + ")";
+                    requesterCombobox.Visible = false;
+                    AcceptOrReject.Text = "Reject";
+                    AcceptOrReject.ForeColor = Color.Red;
+
+                }
+            }
+            catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -225,6 +245,17 @@ namespace CampusBookClient
                 requestStatus2.ForeColor = Color.Green;
             }
         }
+        private void RemoveitemContainingSubstring(string username)
+        {
+            for(int i = requesterCombobox.Items.Count - 1; i >= 0; i--)
+            {
+                string item = requesterCombobox.Items[i].ToString();
+                if (item.Contains(username))
+                {
+                    requesterCombobox.Items.RemoveAt(i);
+                }
+            }
+        }
 
         private void AcceptOrRejectBtn_Clicked(object sender, EventArgs e)
         {
@@ -236,8 +267,14 @@ namespace CampusBookClient
                     Console.WriteLine("GetPatronByUsername is called");
                     AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
                     AcceptOrReject.Text = "Reject";
+                    AcceptOrReject.ForeColor = Color.Red;
                     // calling reject request
                     bookRequestService.rejectRequest(loggedInUsername, RequestAcceptedUsername, bookRow["isbn"].ToString());
+                    this.isAccepted = false;
+                    AcceptedReqFullName.Text = "";
+                    AcceptOrReject.Text = "Accept";
+                    AcceptOrReject.ForeColor = Color.Green;
+                    RemoveitemContainingSubstring(RequestAcceptedUsername);
                 }
                 catch (Exception ex)
                 {
@@ -247,7 +284,6 @@ namespace CampusBookClient
 
             else // accepting request
             {
-                //Console.WriteLine("Comming in th e else part....................1.........................");
                 int startInd = requesterCombobox.Text.IndexOf('(');
                 int endInd = requesterCombobox.Text.IndexOf(')', startInd);
                 string borrowerUsername = requesterCombobox.Text.Substring(startInd + 1, endInd - startInd - 1);
@@ -259,18 +295,19 @@ namespace CampusBookClient
                 }
                 try
                 {
-                    //Console.WriteLine("Comming in th e else part....................2.........................");
                     Console.WriteLine(borrowerUsername);
                     Patron patron = patronService.GetPatronByUsername(borrowerUsername);
-                    //Console.WriteLine("GetPatronByUsername is called");
                     AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
                     AcceptOrReject.Text = "Accept";
-                    //Console.WriteLine("Comming in th e else part....................3.........................");
+                    AcceptOrReject.ForeColor = Color.Green;
 
                     // calling accept request
                     bookRequestService.acceptRequestAsync(loggedInUsername, borrowerUsername, bookRow["isbn"].ToString());
                     requesterCombobox.Visible = false;
                     this.isAccepted = true;
+                    this.RequestAcceptedUsername = borrowerUsername;
+                    AcceptOrReject.Text = "Reject";
+                    AcceptOrReject.ForeColor = Color.Red;
                 }
                 catch (Exception ex)
                 {
