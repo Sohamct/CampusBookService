@@ -50,6 +50,12 @@ namespace CampusBookClient.CampusBook_BookRequestService_ {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookRequestService/fetchAllRequestsFromIsbn", ReplyAction="http://tempuri.org/IBookRequestService/fetchAllRequestsFromIsbnResponse")]
         System.Threading.Tasks.Task<System.Data.DataSet> fetchAllRequestsFromIsbnAsync(string owner, string isbn);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookRequestService/GetAllBorrowedIsbn", ReplyAction="http://tempuri.org/IBookRequestService/GetAllBorrowedIsbnResponse")]
+        string[] GetAllBorrowedIsbn(string borrowerUsername, bool status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookRequestService/GetAllBorrowedIsbn", ReplyAction="http://tempuri.org/IBookRequestService/GetAllBorrowedIsbnResponse")]
+        System.Threading.Tasks.Task<string[]> GetAllBorrowedIsbnAsync(string borrowerUsername, bool status);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +131,14 @@ namespace CampusBookClient.CampusBook_BookRequestService_ {
         
         public System.Threading.Tasks.Task<System.Data.DataSet> fetchAllRequestsFromIsbnAsync(string owner, string isbn) {
             return base.Channel.fetchAllRequestsFromIsbnAsync(owner, isbn);
+        }
+        
+        public string[] GetAllBorrowedIsbn(string borrowerUsername, bool status) {
+            return base.Channel.GetAllBorrowedIsbn(borrowerUsername, status);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetAllBorrowedIsbnAsync(string borrowerUsername, bool status) {
+            return base.Channel.GetAllBorrowedIsbnAsync(borrowerUsername, status);
         }
     }
 }

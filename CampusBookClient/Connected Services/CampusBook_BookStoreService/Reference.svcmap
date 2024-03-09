@@ -22,6 +22,7 @@
     <MetadataSource Address="http://localhost:8736/CampusBookService/BookStoreService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="BookStoreService4.xsd" MetadataType="Schema" ID="8f32b466-bb09-4622-8a19-07fb90ebfc18" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd4" />
     <MetadataFile FileName="BookStoreService.wsdl" MetadataType="Wsdl" ID="93d05c86-ff52-4919-b09e-2909d0877579" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?wsdl" />
     <MetadataFile FileName="BookStoreService.disco" MetadataType="Disco" ID="395d0e87-1794-4ced-aac3-21c849a52cd6" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?disco" />
     <MetadataFile FileName="BookStoreService.xsd" MetadataType="Schema" ID="5a42a8a0-e057-41ab-a559-6cace895621c" SourceId="1" SourceUrl="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd0" />

@@ -8,6 +8,8 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using CampusBookService;
+using CampusBookClient.CampusBook_BookRequestService_;
+using System.Linq;
 
 namespace CampusBookClient
 {
@@ -15,8 +17,10 @@ namespace CampusBookClient
     {
         private CampusBook_PatronService.IPatronService patronService;
         private CampusBook_BookStoreService.IBookStoreService bookStoreService;
+        private CampusBook_BookRequestService_.IBookRequestService bookRequestService;
         private string loggedInUsername;
         List<string> usernames;
+
         Dictionary<string, string> unameToFullName;
         public Home(string username)
         {
@@ -24,6 +28,7 @@ namespace CampusBookClient
             unameToFullName = new Dictionary<string, string>();
             bookStoreService = new BookStoreServiceClient();
             patronService = new PatronServiceClient();
+            bookRequestService = new BookRequestServiceClient();
             this.loggedInUsername = username;
             InitializeComponent();
             Task.Run(async () => await Task.WhenAll(GetBooksAsync(), FetchOwnerDetails()));
@@ -94,7 +99,7 @@ namespace CampusBookClient
 
         private void AddNewBook_Clicked(object sender, EventArgs e)
         {
-            AddNewBook addNewBookPage = new AddNewBook(null, this.loggedInUsername);
+            AddNewBook addNewBookPage = new AddNewBook(null, null, this.loggedInUsername);
             addNewBookPage.Show();
             this.Hide();
         }
@@ -138,8 +143,6 @@ namespace CampusBookClient
             List<DataRow> dataList = new List<DataRow>();
             if(dataset != null && dataset.Tables.Count > 0) {
                 foreach(DataRow row in dataset.Tables[0].Rows) {
-                    Console.WriteLine("looping ...");
-
                     dataList.Add(row);
                 }
             }
@@ -182,6 +185,13 @@ namespace CampusBookClient
                     item.Visible = isSatisfied;
                 }
             }
+        }
+
+        private void BorrowedBook_Click(object sender, EventArgs e)
+        {
+            BorrowedBooks bb = new BorrowedBooks(loggedInUsername);
+            bb.Show();
+            this.Hide();
         }
     }
 }

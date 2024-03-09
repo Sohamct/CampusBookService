@@ -215,6 +215,60 @@ namespace CampusBookService
                 throw new FaultException($"Error while fetching book requests: {e.Message}");
             }
         }
+        public List<string> GetAllBorrowedIsbn(string borrowerUsername, bool status)
+        {
+            if (string.IsNullOrEmpty(borrowerUsername))
+            {
+                throw new ArgumentException("Borrower username cannot be null or empty");
+            }
+            if (!PatronService.sessionTokens.ContainsKey(borrowerUsername))
+            {
+                throw new FaultException("Please login to the system.");
+            }
+            try
+            {
+                List<string> isbnList = new List<string>();
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    string sqlQuery = "SELECT isbn FROM BookRequest WHERE requester = @requester";
+
+                    // Append condition for status
+                    if (!status)
+                    {
+                        sqlQuery += " AND status IS NULL"; // Assuming the 'status' column allows NULL values
+                    }
+                    else
+                    {
+                        sqlQuery += " AND status = @status"; // Assuming 'status' is a boolean column
+                    }
+
+                    SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                    cmd.Parameters.AddWithValue("@requester", borrowerUsername);
+
+                    // Set parameter value only when status is true
+                    if (status)
+                    {
+                        cmd.Parameters.AddWithValue("@status", status);
+                    }
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string isbn = reader.GetString(0);
+                            isbnList.Add(isbn);
+                        }
+                    }
+                }
+                return isbnList;
+            }
+            catch (Exception e)
+            {
+                throw new FaultException($"Error while fetching ISBN of borrower '{borrowerUsername}' with status '{status}': {e.Message}");
+            }
+        }
+
 
     }
 }

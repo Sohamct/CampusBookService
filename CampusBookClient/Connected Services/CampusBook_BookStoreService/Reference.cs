@@ -33,11 +33,11 @@ namespace CampusBookClient.CampusBook_BookStoreService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/GetBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/GetBookByIsbnResponse")]
         System.Threading.Tasks.Task<CampusBookService.BookStore> GetBookByIsbnAsync(string isbn, string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/EditBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/EditBookByIsbnResponse")]
-        CampusBookService.BookStore EditBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/UpdateBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/UpdateBookByIsbnResponse")]
+        CampusBookService.BookStore UpdateBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username, string oldIsbn);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/EditBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/EditBookByIsbnResponse")]
-        System.Threading.Tasks.Task<CampusBookService.BookStore> EditBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/UpdateBookByIsbn", ReplyAction="http://tempuri.org/IBookStoreService/UpdateBookByIsbnResponse")]
+        System.Threading.Tasks.Task<CampusBookService.BookStore> UpdateBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username, string oldIsbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/deleteBook", ReplyAction="http://tempuri.org/IBookStoreService/deleteBookResponse")]
         void deleteBook(string isbn, string username);
@@ -50,6 +50,12 @@ namespace CampusBookClient.CampusBook_BookStoreService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/InsertBook", ReplyAction="http://tempuri.org/IBookStoreService/InsertBookResponse")]
         System.Threading.Tasks.Task<CampusBookService.BookStore> InsertBookAsync(CampusBookService.BookStore book, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/GetBooksFromIsbns", ReplyAction="http://tempuri.org/IBookStoreService/GetBooksFromIsbnsResponse")]
+        System.Data.DataSet GetBooksFromIsbns(string[] isbn, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBookStoreService/GetBooksFromIsbns", ReplyAction="http://tempuri.org/IBookStoreService/GetBooksFromIsbnsResponse")]
+        System.Threading.Tasks.Task<System.Data.DataSet> GetBooksFromIsbnsAsync(string[] isbn, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -103,12 +109,12 @@ namespace CampusBookClient.CampusBook_BookStoreService {
             return base.Channel.GetBookByIsbnAsync(isbn, username);
         }
         
-        public CampusBookService.BookStore EditBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username) {
-            return base.Channel.EditBookByIsbn(book, bookImage, username);
+        public CampusBookService.BookStore UpdateBookByIsbn(CampusBookService.BookStore book, byte[] bookImage, string username, string oldIsbn) {
+            return base.Channel.UpdateBookByIsbn(book, bookImage, username, oldIsbn);
         }
         
-        public System.Threading.Tasks.Task<CampusBookService.BookStore> EditBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username) {
-            return base.Channel.EditBookByIsbnAsync(book, bookImage, username);
+        public System.Threading.Tasks.Task<CampusBookService.BookStore> UpdateBookByIsbnAsync(CampusBookService.BookStore book, byte[] bookImage, string username, string oldIsbn) {
+            return base.Channel.UpdateBookByIsbnAsync(book, bookImage, username, oldIsbn);
         }
         
         public void deleteBook(string isbn, string username) {
@@ -125,6 +131,14 @@ namespace CampusBookClient.CampusBook_BookStoreService {
         
         public System.Threading.Tasks.Task<CampusBookService.BookStore> InsertBookAsync(CampusBookService.BookStore book, string username) {
             return base.Channel.InsertBookAsync(book, username);
+        }
+        
+        public System.Data.DataSet GetBooksFromIsbns(string[] isbn, string username) {
+            return base.Channel.GetBooksFromIsbns(isbn, username);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataSet> GetBooksFromIsbnsAsync(string[] isbn, string username) {
+            return base.Channel.GetBooksFromIsbnsAsync(isbn, username);
         }
     }
 }

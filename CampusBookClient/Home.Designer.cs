@@ -36,6 +36,7 @@
             this.LogoutBtn = new System.Windows.Forms.Button();
             this.MyBook = new System.Windows.Forms.Button();
             this.AddNewBook = new System.Windows.Forms.Button();
+            this.BorrowerBookBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -66,9 +67,9 @@
             this.panel1.Controls.Add(this.SearchText);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(228, 0);
+            this.panel1.Location = new System.Drawing.Point(205, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1036, 845);
+            this.panel1.Size = new System.Drawing.Size(1059, 845);
             this.panel1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -76,19 +77,20 @@
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 133);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1045, 712);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1056, 712);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.Controls.Add(this.BorrowerBookBtn);
             this.panel2.Controls.Add(this.LogoutBtn);
             this.panel2.Controls.Add(this.MyBook);
             this.panel2.Controls.Add(this.AddNewBook);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(187, 845);
+            this.panel2.Size = new System.Drawing.Size(199, 845);
             this.panel2.TabIndex = 4;
             // 
             // LogoutBtn
@@ -96,7 +98,7 @@
             this.LogoutBtn.AutoEllipsis = true;
             this.LogoutBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.LogoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.LogoutBtn.Location = new System.Drawing.Point(12, 266);
+            this.LogoutBtn.Location = new System.Drawing.Point(12, 336);
             this.LogoutBtn.Name = "LogoutBtn";
             this.LogoutBtn.Size = new System.Drawing.Size(156, 40);
             this.LogoutBtn.TabIndex = 2;
@@ -130,6 +132,19 @@
             this.AddNewBook.UseVisualStyleBackColor = false;
             this.AddNewBook.Click += new System.EventHandler(this.AddNewBook_Clicked);
             // 
+            // BorrowerBookBtn
+            // 
+            this.BorrowerBookBtn.AutoEllipsis = true;
+            this.BorrowerBookBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.BorrowerBookBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.BorrowerBookBtn.Location = new System.Drawing.Point(12, 249);
+            this.BorrowerBookBtn.Name = "BorrowerBookBtn";
+            this.BorrowerBookBtn.Size = new System.Drawing.Size(173, 40);
+            this.BorrowerBookBtn.TabIndex = 3;
+            this.BorrowerBookBtn.Text = "Borrowed Books";
+            this.BorrowerBookBtn.UseVisualStyleBackColor = false;
+            this.BorrowerBookBtn.Click += new System.EventHandler(this.BorrowedBook_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -137,7 +152,6 @@
             this.ClientSize = new System.Drawing.Size(1264, 845);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Home";
             this.Text = "Home";
             this.panel1.ResumeLayout(false);
@@ -157,5 +171,6 @@
         private System.Windows.Forms.Button AddNewBook;
         private System.Windows.Forms.Button MyBook;
         private System.Windows.Forms.Button LogoutBtn;
+        private System.Windows.Forms.Button BorrowerBookBtn;
     }
 }

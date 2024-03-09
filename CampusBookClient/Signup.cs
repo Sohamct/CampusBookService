@@ -71,7 +71,7 @@ namespace CampusBookClient
         {
             string[] validBranchsArray =_patronService.GetValidBranches();
             List<string> validBranches = validBranchsArray.ToList();
-
+            BranchCombobox.Items.Clear();
             foreach (string branch in validBranches)
             {
                 BranchCombobox.Items.Add(branch);

@@ -42,14 +42,14 @@ namespace CampusBookClient
         private void HomeBtn_Clicked(object sender, EventArgs e)
         {
             Home home = new Home(loggedInUsername);
-            this.ParentForm.Hide();
+            this.Hide();
             home.Show();
         }
 
 
         private void AddNewBook_Clicked(object sender, EventArgs e)
         {
-            AddNewBook addNewBookPage = new AddNewBook(null, this.loggedInUsername);
+            AddNewBook addNewBookPage = new AddNewBook(null, null, this.loggedInUsername);
             addNewBookPage.Show();
             this.Hide();
         }

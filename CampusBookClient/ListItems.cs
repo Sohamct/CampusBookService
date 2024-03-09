@@ -1,4 +1,5 @@
-﻿using CampusBookClient.CampusBook_PatronService;
+﻿using CampusBookClient.CampusBook_BookStoreService;
+using CampusBookClient.CampusBook_PatronService;
 using CampusBookService;
 using System;
 using System.ComponentModel;
@@ -12,11 +13,14 @@ namespace CampusBookClient
     public partial class ListItem : UserControl
     {
         private DataRow _bookRow;
+        private BookStore _bookStore;
         private string loggedInUsername;
         private CampusBook_PatronService.IPatronService _patronService;
+        private CampusBook_BookStoreService.IBookStoreService _bookStoreService;
         public ListItem(DataRow bookRow, string loggedInUsername)
         {
             _patronService = new PatronServiceClient();
+            _bookStoreService = new BookStoreServiceClient();
             this.loggedInUsername = loggedInUsername;
             InitializeComponent();
             _bookRow = bookRow;
@@ -131,7 +135,7 @@ namespace CampusBookClient
         private void ListItem_Click(object sender, EventArgs e)
         {
             this.ParentForm.Hide();
-            BookDetails bookDetails = new BookDetails(_bookRow, loggedInUsername);
+            BookDetails bookDetails = new BookDetails(_bookRow, null, loggedInUsername);
             bookDetails.Show();
         }
     }

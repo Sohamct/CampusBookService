@@ -47,7 +47,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(231, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(913, 889);
+            this.panel1.Size = new System.Drawing.Size(1020, 898);
             this.panel1.TabIndex = 0;
             // 
             // SearchText
@@ -73,9 +73,9 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 131);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 140);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(913, 758);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1020, 758);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // panel2
@@ -86,7 +86,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(225, 889);
+            this.panel2.Size = new System.Drawing.Size(225, 898);
             this.panel2.TabIndex = 1;
             // 
             // AddNewBookBtn
@@ -119,7 +119,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 889);
+            this.ClientSize = new System.Drawing.Size(1251, 898);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "OwnerBooks";

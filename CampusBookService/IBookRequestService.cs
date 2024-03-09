@@ -24,6 +24,7 @@ namespace CampusBookService
         BookRequest FetchRequestStatus(string requester, string isbn);
         [OperationContract]
         DataSet fetchAllRequestsFromIsbn(string owner, string isbn);
-
+        [OperationContract]
+        List<string> GetAllBorrowedIsbn(string borrowerUsername, bool status);
     }
 }

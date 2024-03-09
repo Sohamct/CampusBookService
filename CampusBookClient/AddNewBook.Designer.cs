@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.pageTitle = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -57,15 +57,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.bookImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // pageTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.label1.Location = new System.Drawing.Point(445, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(193, 31);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Add New Book";
+            this.pageTitle.AutoSize = true;
+            this.pageTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
+            this.pageTitle.Location = new System.Drawing.Point(445, 33);
+            this.pageTitle.Name = "pageTitle";
+            this.pageTitle.Size = new System.Drawing.Size(193, 31);
+            this.pageTitle.TabIndex = 0;
+            this.pageTitle.Text = "Add New Book";
             // 
             // label2
             // 
@@ -324,7 +324,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pageTitle);
             this.Name = "AddNewBook";
             this.Text = "AddNewBook";
             this.Load += new System.EventHandler(this.AddNewBook_Load);
@@ -336,7 +336,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label pageTitle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
