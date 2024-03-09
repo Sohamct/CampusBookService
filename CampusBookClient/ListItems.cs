@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CampusBookClient.CampusBook_BookStoreService;
+using CampusBookClient.CampusBook_PatronService;
+using CampusBookService;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,9 +13,14 @@ namespace CampusBookClient
     public partial class ListItem : UserControl
     {
         private DataRow _bookRow;
+        private BookStore _bookStore;
         private string loggedInUsername;
+        private CampusBook_PatronService.IPatronService _patronService;
+        private CampusBook_BookStoreService.IBookStoreService _bookStoreService;
         public ListItem(DataRow bookRow, string loggedInUsername)
         {
+            _patronService = new PatronServiceClient();
+            _bookStoreService = new BookStoreServiceClient();
             this.loggedInUsername = loggedInUsername;
             InitializeComponent();
             _bookRow = bookRow;
@@ -20,10 +28,15 @@ namespace CampusBookClient
         }
         public void InitializeBookDetail()
         {
+            Patron pt = _patronService.GetPatronByUsername(_bookRow["ownerUsername"].ToString());
             BookName = _bookRow["bookName"].ToString();
-            BookOwner = _bookRow["authorname"].ToString();
+            BookOwner = pt.fname + " " + pt.lname + " (" + _bookRow["ownerUsername"].ToString() + ")";
             ReturnDate = DateTime.Parse(_bookRow["returnDate"].ToString());
             BookAvailable = Convert.ToBoolean(_bookRow["isAvailable"]);
+            Description = _bookRow["description"].ToString();
+            Branch = _bookRow["branch"].ToString();
+            Subject = _bookRow["subject"].ToString();
+
             string imagePath = _bookRow["bookImagePath"].ToString();
             if (!string.IsNullOrEmpty(imagePath))
             {
@@ -44,6 +57,9 @@ namespace CampusBookClient
         private bool _isAvailable;
         private Image _bookImage;
         private DateTime _returnDate;
+        private string description;
+        private string branch;
+        private string subject;
 
         [Category("Custom Props")]
         public string BookName
@@ -70,7 +86,11 @@ namespace CampusBookClient
         public bool BookAvailable
         {
             get { return _isAvailable; }
-            set { _isAvailable = value; isAvailable.Text = (value) ? "Available" : "Not Available"; }
+            set { 
+                _isAvailable = value;
+                isAvailable.Text = (value) ? "Available" : "Not Available";
+                isAvailable.ForeColor = (value) ? Color.Green : Color.Red;
+            }
         }
 
         [Category("Custom Props")]
@@ -79,6 +99,24 @@ namespace CampusBookClient
             get { return _returnDate; }
             set { _returnDate = value; return_date.Text = value.ToShortDateString(); }
         }
+        [Category("Custom Props")]
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+        [Category("Custom Props")]
+        public string Branch
+        {
+            get { return branch; }
+            set { branch = value; }
+        }
+        [Category("Custom Props")]
+        public string Subject
+        {
+            get { return subject; }
+            set { subject = value; }
+        }
         #endregion
 
         private void ListItemMouseHover(object sender, EventArgs e)
@@ -86,7 +124,7 @@ namespace CampusBookClient
             if (BackColor != Color.LemonChiffon)
                 BackColor = Color.LemonChiffon;
 
-        }
+        } 
 
         private void ListItemMouseLeave(object sender, EventArgs e)
         {
@@ -96,7 +134,8 @@ namespace CampusBookClient
 
         private void ListItem_Click(object sender, EventArgs e)
         {
-            BookDetails bookDetails = new BookDetails(_bookRow, loggedInUsername);
+            this.ParentForm.Hide();
+            BookDetails bookDetails = new BookDetails(_bookRow, null, loggedInUsername);
             bookDetails.Show();
         }
     }

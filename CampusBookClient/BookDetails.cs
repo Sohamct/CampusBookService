@@ -20,49 +20,66 @@ namespace CampusBookClient
         private CampusBook_PatronService.IPatronService patronService;
         private readonly string loggedInUsername;
         private DataRow bookRow;
+        private BookStore bookStore;
         private bool isAccepted = false;
         private string RequestAcceptedUsername = "";
-        public BookDetails(DataRow bookRow, string loggedInUsername)
+        private string Isbn, OwnerUsername, BookName, Subject, Branch, ReturnDate, IsAvailable, Description, Authorname, _Pages, BookImagePath;
+        public BookDetails(DataRow bookRow, BookStore bs, string loggedInUsername)
         {
             InitializeComponent();
+            bookStore = bs;
             bookStoreService = new BookStoreServiceClient();
             bookRequestService = new BookRequestServiceClient();
             patronService = new PatronServiceClient();
-
             this.bookRow = bookRow;
-            this.loggedInUsername = loggedInUsername;
-            if(loggedInUsername != bookRow["ownerUsername"].ToString())
+            if(bookStore != null)
             {
-                BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
+                PopulateBookDetailsFromBookStore();
+            }
+            else
+            {
+                PopulateBookDetailsFromBookRow();
+            }
+            this.loggedInUsername = loggedInUsername;
+            if(loggedInUsername != this.OwnerUsername)
+            {
+                BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, this.Isbn.ToString());
                 requesterCombobox.Visible = false; AcceptOrReject.Visible = false;
                 UpdateUI(br);
             }
             else
             {
                 PopulateBookRequestInfo();
-                //this.isAccepted = IsAcceptedOrNot();
             }
-            PopulateBookDetais(bookRow);
+            PopulateBookDetais();
         }
-        //private bool IsAcceptedOrNot()
-        //{
-        //    try
-        //    {
-        //        BookRequest br = bookRequestService.FetchRequestStatus(loggedInUsername, bookRow["isbn"].ToString());
-        //        if (br == null || br.status == null) // either no request on book or request is there but not any accepted.
-        //        {
-        //            return false;
-        //        }
-        //        if (br.status == true)
-        //        {
-        //            this.RequestAcceptedUsername = br.requester;
-        //            return true;
-        //        }
-        //    }catch(Exception ex) {
-        //        MessageBox.Show("Failed to FetchRequestStat book: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    return false;
-        //}
+        private void PopulateBookDetailsFromBookStore() {
+            this.Isbn = bookStore.isbn;
+            this.OwnerUsername = bookStore.ownerUsername;
+            this.BookName = bookStore.bookname;
+            this.Authorname = bookStore.authorname;
+            this._Pages = Convert.ToString(bookStore.pages);
+            this.Subject = bookStore.subject;
+            this.BookImagePath = bookStore.bookimage;
+            this.ReturnDate = Convert.ToString(bookStore.returnDate);
+            this.IsAvailable = (bookStore.isAvailable) ? "Available" : "Not Available";
+            this.Description = bookStore.description;
+            this.Branch = bookStore.branch;
+        }
+        private void PopulateBookDetailsFromBookRow()
+        {
+            this.Isbn = bookRow["isbn"].ToString();
+            this.OwnerUsername = bookRow["ownerUsername"].ToString();
+            this.BookName = bookRow["bookname"].ToString();
+            this.Authorname = bookRow["authorname"].ToString();
+            this._Pages = Convert.ToString(bookRow["pages"].ToString());
+            this.Subject = bookRow["subject"].ToString();
+            this.BookImagePath = bookRow["bookImagePath"].ToString();
+            this.ReturnDate = Convert.ToString(bookRow["returnDate"].ToString());
+            this.IsAvailable =  (Convert.ToBoolean(bookRow["isAvailable"])) ? "Available" : "Not Available";
+            this.Description = bookRow["description"].ToString();
+            this.Branch = bookRow["branch"].ToString();
+        }
 
         private void PopulateBookRequestInfo()
         {
@@ -70,7 +87,7 @@ namespace CampusBookClient
             {
                 requestStatus.Visible = false; requestStatus2.Visible = false;
 
-                DataSet requestsDataSet = bookRequestService.fetchAllRequestsFromIsbn(bookRow["ownerUsername"].ToString(), bookRow["isbn"].ToString());
+                DataSet requestsDataSet = bookRequestService.fetchAllRequestsFromIsbn(this.OwnerUsername, this.Isbn.ToString());
                 List<string> usernames = new List<string>();
                 if (requestsDataSet.Tables.Count > 0)
                 {
@@ -101,41 +118,39 @@ namespace CampusBookClient
                             string username = row["username"].ToString();
                             string data = fname + " " + lname + " (" + username + ")";
                             requesterCombobox.Items.Add(data);
-                            // Console.WriteLine(data);
                         }
                     }
                 }
                 else
                 {
                     Patron pt = patronService.GetPatronByUsername(this.RequestAcceptedUsername);
-                    AcceptedReqFullName.Text = pt.fname + " " + pt.lname + "(" + pt.uname + ")";
+                    AcceptedReqFullName.Text = "Request is Accepted: "+ pt.fname + " " + pt.lname + "(" + pt.uname + ")";
                     requesterCombobox.Visible = false;
                     AcceptOrReject.Text = "Reject";
                     AcceptOrReject.ForeColor = Color.Red;
-
                 }
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-
         }
-        private void PopulateBookDetais(DataRow bookRow)
+        private void PopulateBookDetais()
         {
-            Console.WriteLine("PopulateBookDetais");
-            bookName.Text = bookRow["bookname"].ToString();
-            bookOwner.Text = bookRow["ownerUsername"].ToString();
-            bookAuthor.Text = bookRow["authorname"].ToString();
-            subject.Text = bookRow["subject"].ToString();
-            branch.Text = bookRow["branch"].ToString();
-            pages.Text = bookRow["pages"].ToString();
-            returnDate.Text = DateTime.Parse(bookRow["returnDate"].ToString()).ToShortDateString();
-            isAvailable.Text = (Convert.ToBoolean(bookRow["isAvailable"]) ? "Available" : "Not Available");
-            description.Text = bookRow["description"].ToString();
-            isbn.Text = bookRow["isbn"].ToString();
+            Patron pt = patronService.GetPatronByUsername(this.OwnerUsername);
 
-            string imagePath = bookRow["bookImagePath"].ToString();
+            bookName.Text = this.BookName;
+            bookOwner.Text = pt.fname + " " + pt.lname +" ("+this.OwnerUsername+ ")";
+            bookAuthor.Text = this.Authorname;
+            subject.Text = this.Subject;
+            branch.Text = this.Branch;
+            pages.Text = this._Pages;
+            returnDate.Text = DateTime.Parse(this.ReturnDate).ToShortDateString();
+            isAvailable.Text = this.IsAvailable;
+            description.Text = this.Description;
+            isbn.Text = this.Isbn;
+
+            string imagePath = this.BookImagePath;
             if (!string.IsNullOrEmpty(imagePath))
             {
                 try
@@ -151,18 +166,17 @@ namespace CampusBookClient
             {
                 MessageBox.Show("No image available for this book.");
             }
-            string ownerUsername = bookRow["ownerUsername"].ToString();
+            string ownerUsername = this.OwnerUsername;
             Console.WriteLine(ownerUsername);
             Console.WriteLine(loggedInUsername);
             bool isOwner = string.Equals(ownerUsername, loggedInUsername);
             editBtn.Visible = isOwner;
             deleteBtn.Visible = isOwner;
-            
         }
 
         private void EditBtn_Clicked(object sender, EventArgs e)
         {
-            AddNewBook addNewBook = new AddNewBook(bookRow ,loggedInUsername);
+            AddNewBook addNewBook = new AddNewBook(bookRow , bookStore, loggedInUsername);
             addNewBook.Show();
             this.Hide();
         }
@@ -174,7 +188,7 @@ namespace CampusBookClient
             {
                 try
                 {
-                    string bookIsbn = isbn?.Text; 
+                    string bookIsbn = this.Isbn; 
                     string username = loggedInUsername; 
                     if (string.IsNullOrEmpty(bookIsbn))
                     {
@@ -182,8 +196,6 @@ namespace CampusBookClient
                         return;
                     }
 
-                    Console.WriteLine(bookIsbn);
-                    Console.WriteLine(username);
                     await bookStoreService.deleteBookAsync(bookIsbn, username);
 
                     MessageBox.Show("Book deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -191,7 +203,6 @@ namespace CampusBookClient
                     Home home = new Home(username);
                     home.Show();
                     this.Close();
-
                 }
                 catch (Exception ex)
                 {
@@ -205,14 +216,14 @@ namespace CampusBookClient
             {
                 if (requestStatus.Text == "Request")
                 {
-                    await bookRequestService.makeNewRequestAsync(loggedInUsername, bookRow["isbn"].ToString());
+                    await bookRequestService.makeNewRequestAsync(loggedInUsername, this.Isbn);
                 }
                 else
                 {
-                    await bookRequestService.cancelRequestAsync(loggedInUsername, bookRow["isbn"].ToString());
+                    await bookRequestService.cancelRequestAsync(loggedInUsername, this.Isbn);
                 }
 
-                BookRequest br = await bookRequestService.FetchRequestStatusAsync(loggedInUsername, bookRow["isbn"].ToString());
+                BookRequest br = await bookRequestService.FetchRequestStatusAsync(loggedInUsername, this.Isbn);
 
                 UpdateUI(br);
             }
@@ -241,7 +252,7 @@ namespace CampusBookClient
             else if (br.status == true)
             {
                 requestStatus.Visible = false;
-                requestStatus2.Text = "Accepted !";
+                requestStatus2.Text = "Request is Accepted !";
                 requestStatus2.ForeColor = Color.Green;
             }
         }
@@ -254,6 +265,11 @@ namespace CampusBookClient
                 {
                     requesterCombobox.Items.RemoveAt(i);
                 }
+            }
+            if(requesterCombobox.Items.Count == 0)
+            {
+                requesterCombobox.Visible = false;
+                AcceptOrReject.Visible = false;
             }
         }
 
@@ -269,9 +285,10 @@ namespace CampusBookClient
                     AcceptOrReject.Text = "Reject";
                     AcceptOrReject.ForeColor = Color.Red;
                     // calling reject request
-                    bookRequestService.rejectRequest(loggedInUsername, RequestAcceptedUsername, bookRow["isbn"].ToString());
+                    bookRequestService.rejectRequest(loggedInUsername, RequestAcceptedUsername, this.Isbn);
                     this.isAccepted = false;
                     AcceptedReqFullName.Text = "";
+                    requesterCombobox.Visible = true;
                     AcceptOrReject.Text = "Accept";
                     AcceptOrReject.ForeColor = Color.Green;
                     RemoveitemContainingSubstring(RequestAcceptedUsername);
@@ -286,34 +303,42 @@ namespace CampusBookClient
             {
                 int startInd = requesterCombobox.Text.IndexOf('(');
                 int endInd = requesterCombobox.Text.IndexOf(')', startInd);
-                string borrowerUsername = requesterCombobox.Text.Substring(startInd + 1, endInd - startInd - 1);
 
-                if (string.IsNullOrEmpty(borrowerUsername))
+                if (startInd != -1 && endInd != -1)
                 {
-                    MessageBox.Show("Please select a borrower to accept the request", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                try
-                {
-                    Console.WriteLine(borrowerUsername);
-                    Patron patron = patronService.GetPatronByUsername(borrowerUsername);
-                    AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
-                    AcceptOrReject.Text = "Accept";
-                    AcceptOrReject.ForeColor = Color.Green;
+                    string borrowerUsername = requesterCombobox.Text.Substring(startInd + 1, endInd - startInd - 1);
 
-                    // calling accept request
-                    bookRequestService.acceptRequestAsync(loggedInUsername, borrowerUsername, bookRow["isbn"].ToString());
-                    requesterCombobox.Visible = false;
-                    this.isAccepted = true;
-                    this.RequestAcceptedUsername = borrowerUsername;
-                    AcceptOrReject.Text = "Reject";
-                    AcceptOrReject.ForeColor = Color.Red;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                    if (string.IsNullOrEmpty(borrowerUsername))
+                    {
+                        MessageBox.Show("Please select a borrower to accept the request", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
+                    try
+                    {
+                        Console.WriteLine(borrowerUsername);
+                        Patron patron = patronService.GetPatronByUsername(borrowerUsername);
+                        AcceptedReqFullName.Text = patron.fname + " " + patron.lname + "(" + patron.uname + ")";
+                        AcceptOrReject.Text = "Accept";
+                        AcceptOrReject.ForeColor = Color.Green;
+
+                        // calling accept request
+                        bookRequestService.acceptRequestAsync(loggedInUsername, borrowerUsername, this.Isbn);
+                        requesterCombobox.Visible = false;
+                        this.isAccepted = true;
+                        this.RequestAcceptedUsername = borrowerUsername;
+                        AcceptOrReject.Text = "Reject";
+                        AcceptOrReject.ForeColor = Color.Red;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Invalid format for borrower selection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

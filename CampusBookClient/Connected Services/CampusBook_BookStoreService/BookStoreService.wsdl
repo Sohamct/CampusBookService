@@ -210,7 +210,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_EditBookByIsbn_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_UpdateBookByIsbn_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -229,7 +229,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_EditBookByIsbn_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_UpdateBookByIsbn_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -324,12 +324,51 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_GetBooksFromIsbns_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_IBookStoreService_GetBooksFromIsbns_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd2" />
       <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CampusBookService" />
+      <xsd:import schemaLocation="http://localhost:8736/CampusBookService/BookStoreService?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IBookStoreService_getBooks_InputMessage">
@@ -350,11 +389,11 @@
   <wsdl:message name="IBookStoreService_GetBookByIsbn_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetBookByIsbnResponse" />
   </wsdl:message>
-  <wsdl:message name="IBookStoreService_EditBookByIsbn_InputMessage">
-    <wsdl:part name="parameters" element="tns:EditBookByIsbn" />
+  <wsdl:message name="IBookStoreService_UpdateBookByIsbn_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBookByIsbn" />
   </wsdl:message>
-  <wsdl:message name="IBookStoreService_EditBookByIsbn_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EditBookByIsbnResponse" />
+  <wsdl:message name="IBookStoreService_UpdateBookByIsbn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBookByIsbnResponse" />
   </wsdl:message>
   <wsdl:message name="IBookStoreService_deleteBook_InputMessage">
     <wsdl:part name="parameters" element="tns:deleteBook" />
@@ -367,6 +406,12 @@
   </wsdl:message>
   <wsdl:message name="IBookStoreService_InsertBook_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBookStoreService_GetBooksFromIsbns_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksFromIsbns" />
+  </wsdl:message>
+  <wsdl:message name="IBookStoreService_GetBooksFromIsbns_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksFromIsbnsResponse" />
   </wsdl:message>
   <wsdl:portType name="IBookStoreService">
     <wsdl:operation name="getBooks">
@@ -381,9 +426,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/GetBookByIsbn" message="tns:IBookStoreService_GetBookByIsbn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBookStoreService/GetBookByIsbnResponse" message="tns:IBookStoreService_GetBookByIsbn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EditBookByIsbn">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/EditBookByIsbn" message="tns:IBookStoreService_EditBookByIsbn_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBookStoreService/EditBookByIsbnResponse" message="tns:IBookStoreService_EditBookByIsbn_OutputMessage" />
+    <wsdl:operation name="UpdateBookByIsbn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/UpdateBookByIsbn" message="tns:IBookStoreService_UpdateBookByIsbn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookStoreService/UpdateBookByIsbnResponse" message="tns:IBookStoreService_UpdateBookByIsbn_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="deleteBook">
       <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/deleteBook" message="tns:IBookStoreService_deleteBook_InputMessage" />
@@ -392,6 +437,10 @@
     <wsdl:operation name="InsertBook">
       <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/InsertBook" message="tns:IBookStoreService_InsertBook_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBookStoreService/InsertBookResponse" message="tns:IBookStoreService_InsertBook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBooksFromIsbns">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBookStoreService/GetBooksFromIsbns" message="tns:IBookStoreService_GetBooksFromIsbns_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBookStoreService/GetBooksFromIsbnsResponse" message="tns:IBookStoreService_GetBooksFromIsbns_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IBookStoreService" type="tns:IBookStoreService">
@@ -430,14 +479,14 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EditBookByIsbn">
-      <soap12:operation soapAction="http://tempuri.org/IBookStoreService/EditBookByIsbn" style="document" />
+    <wsdl:operation name="UpdateBookByIsbn">
+      <soap12:operation soapAction="http://tempuri.org/IBookStoreService/UpdateBookByIsbn" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_EditBookByIsbn_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_UpdateBookByIsbn_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_EditBookByIsbn_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_UpdateBookByIsbn_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -460,6 +509,17 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_InsertBook_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBooksFromIsbns">
+      <soap12:operation soapAction="http://tempuri.org/IBookStoreService/GetBooksFromIsbns" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_GetBooksFromIsbns_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_IBookStoreService_GetBooksFromIsbns_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

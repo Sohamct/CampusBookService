@@ -8,6 +8,8 @@ using System.IO;
 using System.Drawing;
 using System.Collections.Generic;
 using CampusBookService;
+using CampusBookClient.CampusBook_BookRequestService_;
+using System.Linq;
 
 namespace CampusBookClient
 {
@@ -15,15 +17,23 @@ namespace CampusBookClient
     {
         private CampusBook_PatronService.IPatronService patronService;
         private CampusBook_BookStoreService.IBookStoreService bookStoreService;
+        private CampusBook_BookRequestService_.IBookRequestService bookRequestService;
         private string loggedInUsername;
+        List<string> usernames;
+
+        Dictionary<string, string> unameToFullName;
         public Home(string username)
         {
+            usernames = new List<string>();
+            unameToFullName = new Dictionary<string, string>();
             bookStoreService = new BookStoreServiceClient();
+            patronService = new PatronServiceClient();
+            bookRequestService = new BookRequestServiceClient();
             this.loggedInUsername = username;
             InitializeComponent();
-            Task.Run(() => GetBooksAsync(username));
+            Task.Run(async () => await Task.WhenAll(GetBooksAsync(), FetchOwnerDetails()));
         }
-        private async Task GetBooksAsync(string username)
+        private async Task GetBooksAsync()
         {
             try
             {
@@ -34,6 +44,8 @@ namespace CampusBookClient
                     foreach (DataRow row in table.Rows)
                     {
                         ListItem item = new ListItem(row, loggedInUsername);
+                        Console.WriteLine(item.BookOwner);
+                        usernames.Add(item.BookOwner);
                         AddItemToUI(item);
                     }
                 }
@@ -46,6 +58,29 @@ namespace CampusBookClient
             {
                 MessageBox.Show("Error retrieving books: " + ex.Message);
             }
+        }
+        private Task FetchOwnerDetails()
+        {
+            try
+            {
+                DataSet ownerFullNames = patronService.GetPatronsFullNameByUsername(usernames.ToArray());
+                foreach(DataTable table in ownerFullNames.Tables)
+                {
+                    string fname, lname, uname;
+                    foreach(DataRow row in table.Rows)
+                    {
+                        fname = row["firstname"].ToString();
+                        lname = row["lastname"].ToString();
+                        uname = row["username"].ToString();
+                        unameToFullName.Add(uname, fname + " " + lname);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while Fetching Owner Details: " + e.Message);
+            }
+            return Task.CompletedTask;
         }
 
         private void AddItemToUI(ListItem item)
@@ -64,13 +99,9 @@ namespace CampusBookClient
 
         private void AddNewBook_Clicked(object sender, EventArgs e)
         {
-            AddNewBook addNewBookPage = new AddNewBook(null, this.loggedInUsername);
+            AddNewBook addNewBookPage = new AddNewBook(null, null, this.loggedInUsername);
             addNewBookPage.Show();
             this.Hide();
-        }
-        private void SearchBtn_Clicked(object sender, EventArgs e)
-        {
-
         }
 
         private async void MyBooks_Clicked(object sender, EventArgs e)
@@ -89,12 +120,11 @@ namespace CampusBookClient
             try
             {
                 DataSet result = await bookStoreService.getBooksOfOwnerAsync(this.loggedInUsername);
-                Console.WriteLine("GetOwnerBooks called");
                 if (result != null && result.Tables.Count > 0)
                 {
                     List<DataRow> ownerBooks = ConvertDataSetToList(result);
-                    Console.WriteLine("ConvertDataSetToList called");
                     OwnerBooks ownerBookForm = new OwnerBooks(ownerBooks, loggedInUsername);
+                    this.Hide();
                     ownerBookForm.Show();
 
                 }
@@ -113,8 +143,6 @@ namespace CampusBookClient
             List<DataRow> dataList = new List<DataRow>();
             if(dataset != null && dataset.Tables.Count > 0) {
                 foreach(DataRow row in dataset.Tables[0].Rows) {
-                    Console.WriteLine("looping ...");
-
                     dataList.Add(row);
                 }
             }
@@ -126,6 +154,43 @@ namespace CampusBookClient
             patronService.LogoutPatron(loggedInUsername);
             Login login = new Login();
             login.Show();
+            this.Hide();
+        }
+
+        private void Search_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = SearchText.Text.Trim().ToLower();
+
+            foreach(ListItem item in flowLayoutPanel1.Controls)
+            {
+                if (string.IsNullOrEmpty(searchText))
+                {
+                    item.Visible = true;
+                }
+                Console.WriteLine(item.BookOwner);
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    bool isSatisfied = item.BookName.ToLower().Contains(searchText) ||
+                       item.BookOwner.ToLower().Contains(searchText) ||
+                       item.Description.ToLower().Contains(searchText) || 
+                       item.Branch.ToLower().Contains(searchText) ||
+                       item.Subject.ToLower().Contains(searchText);
+
+                    Console.WriteLine("item.BookOwner" + item.BookOwner);
+                    string BO = item.BookOwner;
+                    if (unameToFullName.ContainsKey(item.BookOwner) == true)
+                    {
+                        isSatisfied = isSatisfied || unameToFullName[item.BookOwner].Contains(searchText);
+                    }
+                    item.Visible = isSatisfied;
+                }
+            }
+        }
+
+        private void BorrowedBook_Click(object sender, EventArgs e)
+        {
+            BorrowedBooks bb = new BorrowedBooks(loggedInUsername);
+            bb.Show();
             this.Hide();
         }
     }

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.ServiceModel;
+using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CampusBookService
 {
@@ -102,41 +105,51 @@ namespace CampusBookService
             return book;
         }
 
-        public BookStore EditBookByIsbn(BookStore book, byte[] newBookImage, string username)
+        // Update book by ISBN
+        public BookStore UpdateBookByIsbn(BookStore book, byte[] newBookImage, string username, string oldIsbn)
         {
-            if (!PatronService.sessionTokens.ContainsKey(username))
-            {
-                throw new FaultException("Please first login to the system");
-            }
-
             try
             {
+                // Validate username and user session
+                if (string.IsNullOrEmpty(username))
+                {
+                    throw new FaultException("Invalid username.");
+                }
+                if (!PatronService.sessionTokens.ContainsKey(username))
+                {
+                    throw new FaultException("Please first login to the system");
+                }
+                //if (book.isbn != oldIsbn)
+                //{
+                //    UpdateBookInBookRequestIfExist(oldIsbn, book.isbn);
+                //}
                 using (SqlConnection conn = new SqlConnection(cs))
                 {
                     conn.Open();
-                    SqlCommand cmd;
+                    SqlCommand cmd = conn.CreateCommand();
+                    cmd.Connection = conn;
+                    string updateQuery = "UPDATE BookStore SET " +
+                        "bookname = @bookname, authorname = @authorname, " +
+                        "subject = @subject, description = @description, branch = @branch, " +
+                        "pages = @pages, returnDate = @returnDate ";
 
                     if (newBookImage != null && newBookImage.Length > 0)
                     {
                         string newImagePath = SaveBookImage(newBookImage);
-
-                        cmd = new SqlCommand(
-                            "UPDATE BookStore SET isbn=@isbn, bookname = @bookname, authorname = @authorname, " +
-                            "subject = @subject, description = @description, branch = @branch, " +
-                            "pages = @pages, returnDate = @returnDate, " +
-                            "bookImagePath = @bookImagePath " +
-                            "WHERE ownerUsername = @ownerUsername", conn);
+                        updateQuery += ", bookImagePath = @bookImagePath ";
                         cmd.Parameters.AddWithValue("@bookImagePath", newImagePath);
                     }
-                    else
+
+                    if (book.isbn != oldIsbn)
                     {
-                        cmd = new SqlCommand(
-                            "UPDATE BookStore SET isbn=@isbn, bookname = @bookname, authorname = @authorname, " +
-                            "subject = @subject, description = @description, branch = @branch, " +
-                            "pages = @pages, returnDate = @returnDate " +
-                            "WHERE ownerUsername = @ownerUsername", conn);
+                        updateQuery += ", isbn = @newIsbn ";
+                        cmd.Parameters.Add("@newIsbn", SqlDbType.VarChar, 13).Value = book.isbn.Substring(0, Math.Min(book.isbn.Length, 13));
                     }
-                    cmd.Parameters.AddWithValue("@isbn", book.isbn);
+
+                    updateQuery += "WHERE isbn = @oldIsbn";
+                    cmd.Parameters.AddWithValue("@oldIsbn", oldIsbn);
+
+                    cmd.CommandText = updateQuery;
                     cmd.Parameters.AddWithValue("@bookname", book.bookname);
                     cmd.Parameters.AddWithValue("@authorname", book.authorname);
                     cmd.Parameters.AddWithValue("@subject", book.subject);
@@ -144,7 +157,6 @@ namespace CampusBookService
                     cmd.Parameters.AddWithValue("@branch", book.branch);
                     cmd.Parameters.AddWithValue("@pages", book.pages);
                     cmd.Parameters.AddWithValue("@returnDate", book.returnDate);
-                    cmd.Parameters.AddWithValue("@ownerUsername", username);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected == 0)
@@ -152,6 +164,8 @@ namespace CampusBookService
                         throw new FaultException("Failed to edit book: Book does not belong to the user or does not exist");
                     }
                 }
+
+                
             }
             catch (Exception ex)
             {
@@ -161,7 +175,6 @@ namespace CampusBookService
             BookStore editedBook = GetBookByIsbn(book.isbn, username);
             return editedBook;
         }
-
 
         private bool IsBookExists(string isbn)
         {
@@ -176,6 +189,30 @@ namespace CampusBookService
             }
             return exists;
         }
+        private void DeleteBookFromBookRequest(string isbn)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM BookRequest WHERE isbn=@isbn", conn);
+                    cmd.Parameters.AddWithValue("@isbn", isbn);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new FaultException("Error: No matching records found for deletion.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException("Error while deleting book from BookRequest: " + ex.Message);
+            }
+        }
+
         // DELETE BOOK
         public void deleteBook(string isbn, string username)
         {
@@ -201,6 +238,7 @@ namespace CampusBookService
                         throw new FaultException("Error while deleting book: Book does not belong to the user");
                     }
                 }
+                DeleteBookFromBookRequest(isbn);
             }
             catch (SqlException ex)
             {
@@ -268,5 +306,51 @@ namespace CampusBookService
             }
             return dataset;
         }
+
+        public DataSet GetBooksFromIsbns(List<string> isbnList, string username)
+        {
+            try
+            {
+                if (!PatronService.sessionTokens.ContainsKey(username))
+                {
+                    throw new FaultException("Please first login to the system");
+                }
+
+                StringBuilder queryBuilder = new StringBuilder();
+                queryBuilder.Append("SELECT * FROM BookStore WHERE isbn IN (");
+
+                using (SqlConnection conn = new SqlConnection(cs))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+
+                    for (int i = 0; i < isbnList.Count; i++)
+                    {
+                        string param = "@isbn" + i;
+                        queryBuilder.Append(param);
+                        cmd.Parameters.AddWithValue(param, isbnList[i]);
+                        if (i < isbnList.Count - 1)
+                        {
+                            queryBuilder.Append(",");
+                        }
+                    }
+
+                    queryBuilder.Append(")");
+
+                    cmd.CommandText = queryBuilder.ToString();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataSet dataSet = new DataSet();
+                    adapter.Fill(dataSet);
+                    return dataSet;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException("Error while fetching BorrowerBookDetails: " + ex.Message);
+            }
+        }
+
+
     }
 }

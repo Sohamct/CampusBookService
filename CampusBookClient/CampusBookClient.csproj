@@ -60,6 +60,12 @@
     <Compile Include="BookDetails.Designer.cs">
       <DependentUpon>BookDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="BorrowedBooks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BorrowedBooks.Designer.cs">
+      <DependentUpon>BorrowedBooks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\CampusBook_BookRequestService_\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +119,9 @@
     <EmbeddedResource Include="BookDetails.resx">
       <DependentUpon>BookDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BorrowedBooks.resx">
+      <DependentUpon>BorrowedBooks.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,6 +159,9 @@
     <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\CampusBook_BookRequestService_\BookRequestService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService.wsdl" />
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService.xsd">
       <SubType>Designer</SubType>
@@ -161,6 +173,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CampusBook_BookStoreService\BookStoreService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\CampusBook_PatronService\PatronService.wsdl" />

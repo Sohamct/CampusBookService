@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using CampusBookClient.CampusBook_BookStoreService;
@@ -22,16 +23,58 @@ namespace CampusBookClient
         private CampusBook_BookStoreService.IBookStoreService _bookStoreService;
         private byte[] fileBytes = null;
         private string username;
-        public AddNewBook(DataRow bookRow, string username)
+        private string loggedInUsername;
+        private BookStore bookStore;
+        
+        private string Isbn, OwnerUsername, BookName, Subject, Branch, ReturnDate, IsAvailable, Description, Authorname, _Pages, BookImagePath;
+        public AddNewBook(DataRow bookRow, BookStore bs, string username)
         {
             InitializeComponent();
+            this.loggedInUsername = username;
             this.bookRow = bookRow;
             this.username = username;
+            this.bookStore = bs;
             _bookStoreService = new BookStoreServiceClient();
-            if(bookRow != null)
+            if (bookStore != null)
             {
+                PopulateBookDetailsFromBookStore();
                 PopulateFormEditing();
+
             }
+            else if(bookRow != null)
+            {
+                PopulateBookDetailsFromBookRow();
+                PopulateFormEditing();
+
+            }
+        }
+        private void PopulateBookDetailsFromBookStore()
+        {
+            this.Isbn = bookStore.isbn;
+            this.OwnerUsername = bookStore.ownerUsername;
+            this.BookName = bookStore.bookname;
+            this.Authorname = bookStore.authorname;
+            this._Pages = Convert.ToString(bookStore.pages);
+            this.Subject = bookStore.subject;
+            this.BookImagePath = bookStore.bookimage;
+            this.ReturnDate = Convert.ToString(bookStore.returnDate);
+            this.IsAvailable = (bookStore.isAvailable) ? "Available" : "Not Available";
+            this.Description = bookStore.description;
+            this.Branch = bookStore.branch;
+        }
+        private void PopulateBookDetailsFromBookRow()
+        {
+            this.Isbn = bookRow["isbn"].ToString();
+            this.OwnerUsername = bookRow["ownerUsername"].ToString();
+            this.BookName = bookRow["bookname"].ToString();
+            this.Authorname = bookRow["authorname"].ToString();
+            this._Pages = Convert.ToString(bookRow["pages"].ToString());
+            this.Subject = bookRow["subject"].ToString();
+            this.BookImagePath = bookRow["bookImagePath"].ToString();
+            this.ReturnDate = Convert.ToString(bookRow["returnDate"].ToString());
+            this.IsAvailable = (Convert.ToBoolean(bookRow["isAvailable"])) ? "Available" : "Not Available";
+            this.Description = bookRow["description"].ToString();
+            this.Branch = bookRow["branch"].ToString();
         }
 
         private void AddNewBook_Load(object sender, EventArgs e)
@@ -48,23 +91,22 @@ namespace CampusBookClient
         }
         private void PopulateFormEditing()
         {
-            isbn.Text = bookRow["isbn"].ToString();
-            bookName.Text = bookRow["bookname"].ToString();
-            authorName.Text = bookRow["authorname"].ToString();
-            pages.Text = bookRow["pages"].ToString();
-            subject.Text = bookRow["subject"].ToString();
-            description.Text = bookRow["description"].ToString();
-            branchComboBox.Text = bookRow["branch"].ToString();
-            if (DateTime.TryParse(bookRow["returnDate"].ToString(), out DateTime returnDate))
+            isbn.Text = this.Isbn;
+            bookName.Text = this.BookName;
+            authorName.Text = this.Authorname;
+            pages.Text = this._Pages;
+            subject.Text = this.Subject;
+            description.Text = this.Description;
+            branchComboBox.Text = this.Branch;
+            if (DateTime.TryParse(this.ReturnDate, out DateTime returnDate))
             {
                 dateTimePicker.Value = returnDate;
             }
             else
             {
                 dateTimePicker.Value = DateTime.Today;
-                // MessageBox.Show("Invalid return date format or null value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            string imagePath = bookRow["bookImagePath"].ToString();
+            string imagePath = this.BookImagePath;
             if (!string.IsNullOrEmpty(imagePath))
             {
                 try
@@ -77,6 +119,7 @@ namespace CampusBookClient
                 }
             }
             SubmitBtn.Text = "Update Book";
+            pageTitle.Text = "Add New Book";
         }
 
         private void BrowseImage_Clicked(object sender, EventArgs e)
@@ -102,7 +145,6 @@ namespace CampusBookClient
             {
                 try
                 {
-                    // Console.WriteLine(dateTimePicker.Value);
                     BookStore book = new BookStore
                     {
                         isbn = isbn.Text,
@@ -117,8 +159,15 @@ namespace CampusBookClient
                         returnDate = dateTimePicker.Value
                     };
                     _bookStoreService.InsertBook(book, username);
-                    MessageBox.Show("Book submitted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Home home = new Home(loggedInUsername);
+                    home.Show();
+                    this.Hide();
+                    MessageBox.Show("Book Added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (CommunicationException ex)
+                {
 
+                    MessageBox.Show("Failed to Add book. Communication error: Please select the file size less then 7kb." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -144,16 +193,26 @@ namespace CampusBookClient
                     };
                     Console.WriteLine(fileBytes);
                     Console.WriteLine(username);
-                    _bookStoreService.EditBookByIsbn(book,fileBytes, username);
+                    Console.WriteLine(Isbn);
+                    BookStore bs = _bookStoreService.UpdateBookByIsbn(book,fileBytes, username, Isbn);
 
+                    BookDetails bd = new BookDetails(bookRow, bs, loggedInUsername);
+                    bd.Show();
+                    this.Hide();
                     MessageBox.Show("Book updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                
+                catch (CommunicationException ex)
+                {
 
+                    MessageBox.Show("Failed to Edit book. Communication error: Please select the file size less then 7kb." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Failed to update book: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
             
         }
 

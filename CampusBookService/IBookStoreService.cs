@@ -19,10 +19,12 @@ namespace CampusBookService
         [OperationContract]
         BookStore GetBookByIsbn(string isbn, string username);
         [OperationContract]
-        BookStore EditBookByIsbn(BookStore book,byte[] bookImage, string username);
+        BookStore UpdateBookByIsbn(BookStore book,byte[] bookImage, string username, string oldIsbn);
         [OperationContract]
         void deleteBook(string isbn, string username);
         [OperationContract]
         BookStore InsertBook(BookStore book, string username);
+        [OperationContract]
+        DataSet GetBooksFromIsbns(List<string> isbn, string username);
     }
 }
