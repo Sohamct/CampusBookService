@@ -233,20 +233,18 @@ namespace CampusBookService
                     conn.Open();
                     string sqlQuery = "SELECT isbn FROM BookRequest WHERE requester = @requester";
 
-                    // Append condition for status
                     if (!status)
                     {
-                        sqlQuery += " AND status IS NULL"; // Assuming the 'status' column allows NULL values
+                        sqlQuery += " AND status IS NULL";
                     }
                     else
                     {
-                        sqlQuery += " AND status = @status"; // Assuming 'status' is a boolean column
+                        sqlQuery += " AND status = @status";
                     }
 
                     SqlCommand cmd = new SqlCommand(sqlQuery, conn);
                     cmd.Parameters.AddWithValue("@requester", borrowerUsername);
 
-                    // Set parameter value only when status is true
                     if (status)
                     {
                         cmd.Parameters.AddWithValue("@status", status);

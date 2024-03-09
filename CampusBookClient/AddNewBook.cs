@@ -91,6 +91,7 @@ namespace CampusBookClient
         }
         private void PopulateFormEditing()
         {
+            pageTitle.Text = "Update Book";
             isbn.Text = this.Isbn;
             bookName.Text = this.BookName;
             authorName.Text = this.Authorname;
@@ -119,7 +120,6 @@ namespace CampusBookClient
                 }
             }
             SubmitBtn.Text = "Update Book";
-            pageTitle.Text = "Add New Book";
         }
 
         private void BrowseImage_Clicked(object sender, EventArgs e)
